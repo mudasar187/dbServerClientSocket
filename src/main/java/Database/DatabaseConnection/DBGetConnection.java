@@ -1,13 +1,10 @@
-package Database;
+package Database.DatabaseConnection;
 
 import Utility.Util;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 
 /**
  * @author Mudasar Ahmad
@@ -20,8 +17,13 @@ import java.util.Properties;
  */
 
 
-public class DBGetConnection {
+public class DBGetConnection implements AutoCloseable {
 
+    private Connection theConnection;
+
+    public DBGetConnection() {
+        getConnection();
+    }
 
     /**
      * Get connection to database
@@ -37,10 +39,11 @@ public class DBGetConnection {
         mysqlDataSource.setUser(util.getUserName());
         mysqlDataSource.setPassword(util.getPassWord());
         mysqlDataSource.setPort(util.getPort());
+        mysqlDataSource.setDatabaseName(util.getDbName());
         Connection connection = null;
         try
         {
-            connection = mysqlDataSource.getConnection();
+            setTheConnection(mysqlDataSource.getConnection());
 
         }
         catch (SQLException se)
@@ -48,6 +51,19 @@ public class DBGetConnection {
             se.printStackTrace();
             System.out.println("\n### Connection error ###");
         }
-        return connection;
+        return getTheConnection();
+    }
+
+    private void setTheConnection(Connection theConnection) {
+        this.theConnection = theConnection;
+    }
+
+    public Connection getTheConnection() {
+        return this.theConnection;
+    }
+
+    @Override
+    public void close() throws Exception {
+        getTheConnection().close();
     }
 }

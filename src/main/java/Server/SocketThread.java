@@ -1,7 +1,6 @@
 package Server;
 
 import Database.DTO.DTO;
-import Database.DTO.DTOManager;
 
 
 import java.io.ObjectInputStream;
@@ -16,7 +15,7 @@ public class SocketThread implements Runnable {
     private ThreadManager threadManager = new ThreadManager();
     private String messageFromClientToServer;
     private boolean whileIsRunning = true;
-
+    private DTO theDto;
 
     /**
      * Oppretter en socket, og connecter til server
@@ -25,7 +24,7 @@ public class SocketThread implements Runnable {
     public SocketThread(Socket clientSocket) {
         messageFromClientToServer = "";
         setClientSocket(clientSocket);
-
+        theDto = new DTO();
     }
 
 
@@ -48,20 +47,21 @@ public class SocketThread implements Runnable {
      */
     public void sendMessageToClient() {
         try {
-            DTOManager dtoManager;
+            //Lager nytt object av DTO
+            DTO dtoToBeSent = new DTO();
+
+
             if(messageFromClientToServer.equals("exit"))
             {
-                dtoManager = new DTOManager(new DTO("You are now disconnected"));
+                //Assigner ny DTO til dtoToBeSent
+                dtoToBeSent = new DTO("You are now disconnected");
                 whileIsRunning = false;
             } else {
-                //Når du har skrevet parsing på client side så bruker du dto-en som er kommentert vekk istedenfor.
-                dtoManager = new DTOManager(threadManager.getInformationFromDataBase(messageFromClientToServer));
-                if(dtoManager.getDto() == null) {
-                    dtoManager = new DTOManager(new DTO("Test......"));
-                }
-
+                System.out.println("You are now connected");
+                //Assigner ny dto til dtoToBeSent
+                dtoToBeSent = threadManager.getInformationFromDataBase(messageFromClientToServer);
             }
-            output.writeObject(dtoManager);
+            output.writeObject(dtoToBeSent);
             output.flush();
         } catch (Exception e) {
             System.out.println(e.getMessage());

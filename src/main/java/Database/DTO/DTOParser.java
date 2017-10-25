@@ -1,12 +1,10 @@
-package Database;
-import Database.DTO.DTO;
-import Database.DTO.DTOManager;
+package Database.DTO;
 import Database.Tables.*;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class DBGetObject {
+public class DTOParser {
 
     private Object theTable;
     private ArrayList<Object> tableObjects;
@@ -17,6 +15,7 @@ public class DBGetObject {
     private ArrayList<room> rooms;
     private ArrayList<semester> semesters;
     private ArrayList<subject> subjects;
+    private ArrayList<getAllTables> allTables;
 
     private String incrementalString;
 
@@ -24,24 +23,14 @@ public class DBGetObject {
      * Tar imot hvilket table det er, og lager en arraylist med objekter
      *
      */
-    public DBGetObject() {
+    public DTOParser() {
       availabilities = new ArrayList<availability>();
       lecturers = new ArrayList<lecturer>();
       programs = new ArrayList<program>();
       rooms = new ArrayList<room>();
       semesters = new ArrayList<semester>();
       subjects = new ArrayList<subject>();
-    }
-
-    /**
-     * retunerer en arraylist med objekter fra tabellene
-     *
-     * @return
-     * @throws Exception
-     */
-    public String checkWichTypeOfTableIsIt(DTOManager dtoManager) throws Exception {
-        DTO theDTO =  dtoManager.getDto();
-        return parseResults(theDTO.getResultSet(), theDTO.getTableNumber());
+      allTables = new ArrayList<getAllTables>();
     }
 
     /**
@@ -50,7 +39,7 @@ public class DBGetObject {
      * @return
      * @throws Exception
      */
-    private String parseResults(ResultSet resultSet, int tableNumber) throws Exception {
+    public String parseResults(ResultSet resultSet, int tableNumber) throws Exception {
         while(resultSet.next()) {
             switch (tableNumber) {
                 case 1:
@@ -91,9 +80,13 @@ public class DBGetObject {
                 case 6:
                     subjects.add(new subject(resultSet.getString("id"),
                             resultSet.getString("name"),
-                            resultSet.getInt("particants"),
+                            resultSet.getInt("participants"),
                             "subject"));
                     break;
+                case 7:
+                    allTables.add(new getAllTables(resultSet.getString("table_name")));
+                    break;
+
             }
         }
         return makeStringOfOfObject();
@@ -104,7 +97,7 @@ public class DBGetObject {
         if (!rooms.isEmpty()) {
             for (room R : rooms)
             {
-                setIncrementalString(true, "\nRoom ID: " + R.getId()+"Room capacity: " + R.getCapacity()+"room type: " + R.getRoomType());
+                setIncrementalString(true, "\n " + R.toString());
             }
         } else if (!availabilities.isEmpty()) {
             for (availability A : availabilities)
@@ -130,14 +123,19 @@ public class DBGetObject {
                                                                 "Semster end: " + S.getEnd());
             }
 
-        } else {
+        } else if (!subjects.isEmpty()) {
             for (subject SU : subjects) {
                 setIncrementalString(true, "\nSubject Code: " + SU.getId()+
                                                                 "Subject Name: " + SU.getName()+
                                                                 "Particants: " + SU.getParticants());
             }
+        } else {
+            for (getAllTables T: allTables) {
+                setIncrementalString(true, T.toString());
+            }
         }
 
+        clearArrays();
         return this.incrementalString;
     }
 
@@ -147,6 +145,16 @@ public class DBGetObject {
         } else {
             this.incrementalString = newString;
         }
+    }
+
+    private void clearArrays() {
+        availabilities.clear();
+        lecturers.clear();
+        programs.clear();
+        rooms.clear();
+        semesters.clear();
+        subjects.clear();
+        allTables.clear();
     }
 
 }

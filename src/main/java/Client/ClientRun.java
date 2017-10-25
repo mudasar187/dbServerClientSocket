@@ -9,15 +9,17 @@ import java.awt.event.WindowEvent;
 public class ClientRun {
     private JComboBox queriesComboBox;
     private JTextArea textArea;
-    private JTextField searchField;
     private JButton clearButton;
     private JButton enterButton;
     private JPanel mainGUI;
     private JButton exitButton;
+    private JTextField searchField;
 
     private static ClientSocket clientSocket;
 
-    private String [] comboBox = {"Select your queries", "Get emner"};
+
+    //Quieries combobox
+    private String [] comboBox = {"Choose your table", "Lectures"};
     private String selectedItemInComboBox;
 
 
@@ -27,8 +29,10 @@ public class ClientRun {
     public ClientRun() {
 
         // Dette er den første som kjøres slik at "Velkommen" vises av server
-        selectedItemInComboBox = "Select your queries";
+        selectedItemInComboBox = comboBox[0];
         textArea.setText(clientSocket.sendMessage(selectedItemInComboBox));
+
+        JOptionPane.showMessageDialog(null, "Hei!");
 
 
         /**
@@ -55,7 +59,9 @@ public class ClientRun {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(selectedItemInComboBox);
-             textArea.setText(clientSocket.sendMessage(selectedItemInComboBox));
+                String beskjedSomSkalBliSendt = selectedItemInComboBox + " " + searchField.getText();
+                System.out.println("Det jeg ønsker å sende: " + beskjedSomSkalBliSendt);
+                textArea.setText(clientSocket.sendMessage(beskjedSomSkalBliSendt));
             }
         });
 
@@ -66,10 +72,10 @@ public class ClientRun {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectedItemInComboBox = (String) queriesComboBox.getSelectedItem();
-                System.out.println(selectedItemInComboBox);
                 textArea.setText(clientSocket.sendMessage(selectedItemInComboBox));
             }
         });
+
     }
 
 
@@ -101,7 +107,6 @@ public class ClientRun {
             public void windowClosing(WindowEvent e) {
 
                 super.windowClosed(e);
-                // Funker dette ??
                 clientSocket.sendMessage("exit");
                 System.exit(1);
             }

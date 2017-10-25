@@ -1,7 +1,6 @@
 package Client;
 
-import Database.DBGetObject;
-import Database.DTO.DTOManager;
+import Database.DTO.DTO;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,13 +10,12 @@ public class ClientSocket {
     private Socket serverConnection;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-    private DBGetObject dbGetObject;
+   // private DBGetObject dbGetObject;
 
     /**
      * Denne oppretter connection for client til server
      */
     public ClientSocket(String host, int port) {
-
         try {
             setServerConnection(new Socket(host, port));
         } catch (Exception e) {
@@ -28,6 +26,7 @@ public class ClientSocket {
     /**
      * Oppretter objekt av outputstream for å kunne sende flere meldinger
      */
+
     public String sendMessage(String message) {
         try {
             output = new ObjectOutputStream(getServerConnection().getOutputStream());
@@ -47,6 +46,7 @@ public class ClientSocket {
     }
 
 
+
     /**
      * Samme som over, bare får input
      */
@@ -55,15 +55,12 @@ public class ClientSocket {
         input = new ObjectInputStream(getServerConnection().getInputStream());
         System.out.println("Skal få input fra serveren");
 
-        DTOManager dtoManager = (DTOManager) input.readObject();
-        if (dtoManager.getDto().getInfo().equals("")) {
-//            new DBGetObject()
-            dbGetObject = new DBGetObject();
-            return dbGetObject.checkWichTypeOfTableIsIt(dtoManager);
-            //return "Verdien til parsing metoden";
-        } else {
-            return dtoManager.getDto().getInfo();
-        }
+        DTO theDTO = (DTO) input.readObject();
+        System.out.println("Results: " + theDTO.getParsedString());
+
+        return theDTO.getParsedString();
+
+
     }
 
 
