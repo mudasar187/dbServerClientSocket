@@ -42,10 +42,6 @@ public class DBManager {
 
    // private String [] comboBox = {"Choose your table", "Lectures", VENT -> "Subject", "Room", "Program", "Semester", "Availability"};
 
-    public DTO getTables() {
-        setSqlQuery("SELECT table_name FROM information_schema.tables where table_schema = " + "'" + util.getDbName() + "'");
-        return getInfo(7);
-    }
 
     public DTO getLectures() {
         setSqlQuery("SELECT firstName FROM lecturer");

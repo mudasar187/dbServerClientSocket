@@ -18,7 +18,6 @@ public class ThreadManager {
         if (messageFromClient.contains("Lectures ")) {
             splitUpWords = messageFromClient.substring(0, 9);
             resultString = messageFromClient.replaceAll(splitUpWords, "");
-            System.out.println("Mottat etter delt opp string: " + resultString);
             theDto = dbManager.getLecturedInfo(resultString);
         } else if (messageFromClient.contains("Subject ")) {
             splitUpWords = messageFromClient.substring(0, 8);
