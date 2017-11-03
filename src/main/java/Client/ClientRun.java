@@ -1,10 +1,7 @@
 package Client;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class ClientRun {
     private JComboBox queriesComboBox;
@@ -19,7 +16,7 @@ public class ClientRun {
 
 
     //Quieries combobox
-    private String [] comboBox = {"Choose your table", "Lectures"};
+    private String [] comboBox = {"Welcome", "Lectures", "Subject", "Room", "Program", "Availability"};
     private String selectedItemInComboBox;
 
 
@@ -31,10 +28,8 @@ public class ClientRun {
         // Dette er den første som kjøres slik at "Velkommen" vises av server
         selectedItemInComboBox = comboBox[0];
         textArea.setText(clientSocket.sendMessage(selectedItemInComboBox));
-
-        JOptionPane.showMessageDialog(null, "Hei!");
-
-
+        searchField.setEditable(false);
+        enterButton.setEnabled(false);
         /**
          * Setter opp config for gui
          */
@@ -58,10 +53,8 @@ public class ClientRun {
         enterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(selectedItemInComboBox);
-                String beskjedSomSkalBliSendt = selectedItemInComboBox + " " + searchField.getText();
-                System.out.println("Det jeg ønsker å sende: " + beskjedSomSkalBliSendt);
-                textArea.setText(clientSocket.sendMessage(beskjedSomSkalBliSendt));
+                String messageGoingToBeSent = selectedItemInComboBox + " " + searchField.getText();
+                textArea.setText(clientSocket.sendMessage(messageGoingToBeSent));
             }
         });
 
@@ -71,11 +64,34 @@ public class ClientRun {
         queriesComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                searchField.setText("");
                 selectedItemInComboBox = (String) queriesComboBox.getSelectedItem();
+                if (!selectedItemInComboBox.equals("Welcome")) {
+                    if (selectedItemInComboBox.equals("Availability")) {
+                        searchField.setEditable(false);
+                        enterButton.setEnabled(false);
+                    } else {
+                        searchField.setEditable(true);
+                        enterButton.setEnabled(true);
+                        searchField.setText(selectedItemInComboBox + ": ");
+                    }
+                } else {
+                    searchField.setEditable(false);
+                    enterButton.setEnabled(false);
+                }
                 textArea.setText(clientSocket.sendMessage(selectedItemInComboBox));
             }
         });
 
+        searchField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+                if (searchField.getText().equals(selectedItemInComboBox + ": ")) {
+                    searchField.setText("");
+                }
+            }
+        });
     }
 
 

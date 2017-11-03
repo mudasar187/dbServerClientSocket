@@ -10,7 +10,6 @@ public class ClientSocket {
     private Socket serverConnection;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-   // private DBGetObject dbGetObject;
 
     /**
      * Denne oppretter connection for client til server
@@ -32,16 +31,16 @@ public class ClientSocket {
             output = new ObjectOutputStream(getServerConnection().getOutputStream());
             if(message != null)
             {
-                System.out.println("Sender melding");
+                System.out.println("### Client sending message to server ...");
                 output.writeUTF(message);
                 output.flush();
                 return getMessage();
             }
         } catch (Exception e) {
-            System.out.println("Cannot send message");
+            System.out.println("### Client cannot send message to server ...");
         }
 
-        return "You must enter some value";
+        return "### You must enter some value";
 
     }
 
@@ -53,12 +52,15 @@ public class ClientSocket {
     private String getMessage() throws Exception {
 
         input = new ObjectInputStream(getServerConnection().getInputStream());
-        System.out.println("Skal få input fra serveren");
+        System.out.println("### Getting respons from server ...");
 
         DTO theDTO = (DTO) input.readObject();
-        System.out.println("Results: " + theDTO.getParsedString());
 
-        return theDTO.getParsedString();
+        if (theDTO.getParsedString().equals("")) {
+            return "### Could not find anything";
+        } else {
+            return theDTO.getParsedString();
+        }
 
 
     }
@@ -72,11 +74,4 @@ public class ClientSocket {
 
     public void setServerConnection(Socket serverConnection) { this.serverConnection = serverConnection; }
 
-    public ObjectOutputStream getOutput() { return output; }
-
-    public void setOutput(ObjectOutputStream output) { this.output = output; }
-
-    public ObjectInputStream getInput() { return input; }
-
-    public void setInput(ObjectInputStream input) { this.input = input; }
 }

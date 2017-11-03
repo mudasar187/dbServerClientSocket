@@ -1,7 +1,6 @@
 package Database.DTO;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
 
 public class DTO implements Serializable {
 
@@ -15,7 +14,7 @@ public class DTO implements Serializable {
     }
 
 
-    private void setParsedString(String parsedString) {
+    public void setParsedString(String parsedString) {
         this.parsedString = parsedString;
     }
 

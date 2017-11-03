@@ -5,7 +5,8 @@ package Database.Tables;
 public class availability {
 
     private int weekId;
-    private int lecturerId;
+    private String firstName;
+    private String lastName;
     private boolean monday;
     private boolean tuesday;
     private boolean wednesday;
@@ -14,13 +15,16 @@ public class availability {
     private String type;
 
 
-    public availability(int weekId, int lecturerId, boolean monday, boolean tuesday, boolean wednesday,
+
+
+    public availability(int weekId, String firstName, String lastName, boolean monday, boolean tuesday, boolean wednesday,
                         boolean thursday,
                         boolean friday, String type)
     {
 
         setWeekId(weekId);
-        setLecturerId(lecturerId);
+        setFirstName(firstName);
+        setLastName(lastName);
         setMonday(monday);
         setThursday(tuesday);
         setWednesday(wednesday);
@@ -37,16 +41,6 @@ public class availability {
     public void setWeekId(int weekId) {
 
         this.weekId = weekId;
-    }
-
-    public int getLecturerId() {
-
-        return lecturerId;
-    }
-
-    public void setLecturerId(int lecturerId) {
-
-        this.lecturerId = lecturerId;
     }
 
     public boolean isMonday() {
@@ -109,12 +103,29 @@ public class availability {
         this.type = type;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public String toString() {
 
         return "availability{" +
                 "weekId=" + weekId +
-                ", lecturerId=" + lecturerId +
+                "firstName = " + getFirstName() +
+                "lastName = " + getLastName() +
                 ", monday=" + monday +
                 ", tuesday=" + tuesday +
                 ", wednesday=" + wednesday +

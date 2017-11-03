@@ -3,16 +3,49 @@ package Database.Tables;
 public class subject {
 
     private String id;
-    private String name;
+    private String subjectName;
     private int particants;
     private String type;
+    private String firstName;
+    private String lastName;
 
-    public subject(String id, String name, int particants, String type) {
+    public subject(String id, String subjectName, int particants, String type, String firstName, String lastName) {
 
         setId(id);
-        setName(name);
         setParticants(particants);
         setType(type);
+        setSubjectName(subjectName);
+        setFirstName(firstName);
+        setLastName(lastName);
+
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public subject(String id) {
+        setId(id);
     }
 
     public String getId() {
@@ -25,15 +58,7 @@ public class subject {
         this.id = id;
     }
 
-    public String getName() {
 
-        return name;
-    }
-
-    public void setName(String name) {
-
-        this.name = name;
-    }
 
     public int getParticants() {
 
@@ -57,11 +82,17 @@ public class subject {
 
     @Override
     public String toString() {
-
-        return "subject{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", particants=" + particants +
-                '}';
+        String returnString = "";
+        if (getSubjectName() != null) {
+            returnString = "subject{" +
+                    "id='" + id + '\'' +
+                    ", name='" + getSubjectName() + '\'' +
+                    ", particants=" + getParticants() +
+                    ", teacher name= " + getFirstName() + " " + getLastName() +
+                    '}';
+        } else {
+            returnString = getId();
+        }
+        return returnString;
     }
 }

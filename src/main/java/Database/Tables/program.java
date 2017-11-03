@@ -2,23 +2,59 @@ package Database.Tables;
 
 public class program {
 
-    private int id;
+    private Integer id;
     private String name;
     private String type;
+    private String start;
+    private String end;
 
-    public program(int id, String name, String type) {
+
+
+    private int participants;
+
+    public program(int id, String name, int participants, String type, String start, String end) {
 
         setId(id);
         setName(name);
         setType(type);
+        setStart(start);
+        setEnd(end);
+        setParticipants(participants);
     }
 
-    public int getId() {
+    public int getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(int participants) {
+        this.participants = participants;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
+    public program(String name) {
+        setName(name);
+    }
+
+    public Integer getId() {
 
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
 
         this.id = id;
     }
@@ -33,10 +69,6 @@ public class program {
         this.name = name;
     }
 
-    public String getType() {
-
-        return type;
-    }
 
     public void setType(String type) {
 
@@ -45,10 +77,18 @@ public class program {
 
     @Override
     public String toString() {
-
-        return "program{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        String returnString = "";
+        if (getId() != null) {
+            returnString = "program{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", participants + " + getParticipants() +
+                    ", start " + getStart() +
+                    ", end " + getEnd() +
+                    '}';
+        } else {
+            returnString = getName();
+        }
+        return returnString;
     }
 }

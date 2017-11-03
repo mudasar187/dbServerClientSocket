@@ -17,6 +17,10 @@ public class lecturer {
         setType(type);
     }
 
+    public lecturer(String firstName) {
+        setFirstName(firstName);
+    }
+
     public int getId() {
 
         return id;
@@ -69,12 +73,17 @@ public class lecturer {
 
     @Override
     public String toString() {
-
-        return "lecturer{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        String returnString = "";
+        if (lastName != null) {
+            returnString = "lecturer{" +
+                    "id=" + id +
+                    ", firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    ", email='" + email + '\'' +
+                    '}';
+        } else {
+            returnString = "\n Firstname: " + getFirstName();
+        }
+        return returnString;
     }
 }

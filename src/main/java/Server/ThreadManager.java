@@ -12,19 +12,28 @@ public class ThreadManager {
         theDto = new DTO();
     }
 
-    //For oversikt
-    // private String [] comboBox = {"Choose your table", "Lectures", "Subject", "Room", "Program", "Semester", "Availability"};
-
     public DTO getSpesificInformationFromDatabase(String messageFromClient) {
-        String deltOppString = "";
+        String splitUpWords = "";
         String resultString = "";
         if (messageFromClient.contains("Lectures ")) {
-            deltOppString = messageFromClient.substring(0, 9);
-            resultString = messageFromClient.replaceAll(deltOppString, "");
+            splitUpWords = messageFromClient.substring(0, 9);
+            resultString = messageFromClient.replaceAll(splitUpWords, "");
             System.out.println("Mottat etter delt opp string: " + resultString);
-            theDto = dbManager.getForeleserByName(resultString);
+            theDto = dbManager.getLecturedInfo(resultString);
+        } else if (messageFromClient.contains("Subject ")) {
+            splitUpWords = messageFromClient.substring(0, 8);
+            resultString = messageFromClient.replaceAll(splitUpWords, "");
+            theDto = dbManager.getInformationBySubjectCode(resultString);
+        } else if (messageFromClient.contains("Room ")) {
+            splitUpWords = messageFromClient.substring(0, 5);
+            resultString = messageFromClient.replaceAll(splitUpWords, "");
+            theDto = dbManager.getRoomInformation(resultString);
+        } else if (messageFromClient.contains("Program ")) {
+            splitUpWords = messageFromClient.substring(0, 8);
+            resultString = messageFromClient.replaceAll(splitUpWords, "");
+            theDto = dbManager.getProgramInformation(resultString);
         } else {
-            theDto = new DTO("Default");
+            theDto = new DTO("No match for search value " + messageFromClient);
         }
         return theDto;
     }
@@ -32,17 +41,34 @@ public class ThreadManager {
     //Denne bestemmer hva som skal bli returnert fra databasen til serverThread som deretter sender til client
     public DTO getInformationFromDataBase(String messageFromClient) {
         switch (messageFromClient) {
-            case "Choose your table":
-                theDto = dbManager.getTables();
+            case "Welcome":
+                theDto = makeWelcomeMessage();
                 break;
             case "Lectures":
                 theDto = dbManager.getLectures();
-                //Assign dto
+                break;
+            case "Subject":
+                theDto = dbManager.getSubjectCodes();
+                break;
+            case "Availability":
+                theDto = dbManager.getAvailability();
+                break;
+            case "Room":
+                theDto = dbManager.getRoomsOverview();
+                break;
+            case "Program":
+                theDto = dbManager.getProgramsOverview();
                 break;
             default:
                 theDto = getSpesificInformationFromDatabase(messageFromClient);
                 break;
         }
         return theDto;
+    }
+
+    private DTO makeWelcomeMessage() {
+        DTO dto = new DTO();
+        dto.setParsedString("Welcome");
+        return dto;
     }
 }

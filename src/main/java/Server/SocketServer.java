@@ -23,7 +23,6 @@ public class SocketServer {
     public SocketServer(int port) {
         try {
             serverSocket = new ServerSocket(port);
-
         } catch (Exception e) {
 
             System.out.println("### Server is down, or port in use ###");

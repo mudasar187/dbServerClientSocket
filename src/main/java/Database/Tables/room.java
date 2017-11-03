@@ -15,6 +15,10 @@ public class room {
         setType(type);
     }
 
+    public room(String id) {
+        setId(id);
+    }
+
     public String getId() {
 
         return id;
@@ -56,11 +60,16 @@ public class room {
     }
 
     public String toString() {
-
-        return "room{" +
-                "id='" + id + '\'' +
-                ", capacity=" + capacity +
-                ", roomType='" + roomType + '\'' +
-                '}';
+        String returnString = "";
+        if (getRoomType() != null) {
+            returnString = "room{" +
+                    "id='" + id + '\'' +
+                    ", capacity=" + capacity +
+                    ", roomType='" + roomType + '\'' +
+                    '}';
+        } else {
+            returnString = getId() + ", ";
+        }
+        return returnString;
     }
 }

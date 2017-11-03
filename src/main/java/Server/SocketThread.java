@@ -34,7 +34,6 @@ public class SocketThread implements Runnable {
     public void getMessageFromClient() {
         try {
             messageFromClientToServer = input.readUTF();
-            System.out.println("message from client: " + messageFromClientToServer);
             sendMessageToClient();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -57,7 +56,7 @@ public class SocketThread implements Runnable {
                 dtoToBeSent = new DTO("You are now disconnected");
                 whileIsRunning = false;
             } else {
-                System.out.println("You are now connected");
+                System.out.println("You are now sending response to client");
                 //Assigner ny dto til dtoToBeSent
                 dtoToBeSent = threadManager.getInformationFromDataBase(messageFromClientToServer);
             }

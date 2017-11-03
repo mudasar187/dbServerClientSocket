@@ -3,7 +3,7 @@ package Database.DatabaseConnection;
 import Utility.Util;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.SQLException;
 
 /**
@@ -17,13 +17,7 @@ import java.sql.SQLException;
  */
 
 
-public class DBGetConnection implements AutoCloseable {
-
-    private Connection theConnection;
-
-    public DBGetConnection() {
-        getConnection();
-    }
+public class DBConnection {
 
     /**
      * Get connection to database
@@ -31,39 +25,26 @@ public class DBGetConnection implements AutoCloseable {
      * @return connection
      */
     public Connection getConnection() {
-
         Util util = new Util("src/main/resources/socketdatabase.properties");
-        MysqlDataSource mysqlDataSource = new MysqlDataSource();
+        MysqlDataSource mysqlDataSource;
 
+        mysqlDataSource = new MysqlDataSource();
         mysqlDataSource.setServerName(util.getHostName());
         mysqlDataSource.setUser(util.getUserName());
         mysqlDataSource.setPassword(util.getPassWord());
-        mysqlDataSource.setPort(util.getPort());
         mysqlDataSource.setDatabaseName(util.getDbName());
+        mysqlDataSource.setPort(util.getPort());
         Connection connection = null;
         try
         {
-            setTheConnection(mysqlDataSource.getConnection());
+            connection = mysqlDataSource.getConnection();
 
         }
         catch (SQLException se)
         {
-            se.printStackTrace();
+            //se.printStackTrace();
             System.out.println("\n### Connection error ###");
         }
-        return getTheConnection();
-    }
-
-    private void setTheConnection(Connection theConnection) {
-        this.theConnection = theConnection;
-    }
-
-    public Connection getTheConnection() {
-        return this.theConnection;
-    }
-
-    @Override
-    public void close() throws Exception {
-        getTheConnection().close();
+        return connection;
     }
 }

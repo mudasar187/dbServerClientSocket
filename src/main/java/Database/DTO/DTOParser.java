@@ -2,18 +2,15 @@ package Database.DTO;
 import Database.Tables.*;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 
 public class DTOParser {
 
-    private Object theTable;
-    private ArrayList<Object> tableObjects;
-    private int tableNumber;
     private ArrayList<availability> availabilities;
     private ArrayList<lecturer> lecturers;
     private ArrayList<program> programs;
     private ArrayList<room> rooms;
-    private ArrayList<semester> semesters;
     private ArrayList<subject> subjects;
     private ArrayList<getAllTables> allTables;
 
@@ -28,7 +25,6 @@ public class DTOParser {
       lecturers = new ArrayList<lecturer>();
       programs = new ArrayList<program>();
       rooms = new ArrayList<room>();
-      semesters = new ArrayList<semester>();
       subjects = new ArrayList<subject>();
       allTables = new ArrayList<getAllTables>();
     }
@@ -40,17 +36,22 @@ public class DTOParser {
      * @throws Exception
      */
     public String parseResults(ResultSet resultSet, int tableNumber) throws Exception {
+        ResultSetMetaData metaData = resultSet.getMetaData();
+
         while(resultSet.next()) {
             switch (tableNumber) {
                 case 1:
-                    rooms.add(new room(resultSet.getString("id"),
-                            resultSet.getInt("capacity"),
-                            resultSet.getString("roomtype"),
-                            "room"));
+                    if (checkColumns(metaData)) {
+                        rooms.add(new room(resultSet.getString("id"), resultSet.getInt("capacity"), resultSet.getString("roomType"),""));
+                    } else {
+                        rooms.add(new room(resultSet.getString("id")));
+                    }
+
                     break;
                 case 2:
                     availabilities.add(new availability(resultSet.getInt("weekId"),
-                            resultSet.getInt("lecturerId"),
+                            resultSet.getString("firstName"),
+                            resultSet.getString("lastName"),
                             resultSet.getBoolean("monday"),
                             resultSet.getBoolean("tuesday"),
                             resultSet.getBoolean("wednesday"),
@@ -59,31 +60,37 @@ public class DTOParser {
                             "availability"));
                     break;
                 case 3:
-                    lecturers.add(new lecturer(resultSet.getInt("id"),
-                            resultSet.getString("firstName"),
-                            resultSet.getString("lastName"),
-                            resultSet.getString("email"),
-                            "lecturer"));
+                    if (checkColumns(metaData)) {
+                        lecturers.add(new lecturer(resultSet.getInt("id"), resultSet.getString("firstName"), resultSet.getString("lastName"), resultSet.getString("email"), ""));
+                    } else {
+                        lecturers.add(new lecturer(resultSet.getString("firstName")));
+                    }
+
                     break;
                 case 4:
-                    programs.add(new program(resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            "program"));
+                    if (checkColumns(metaData)) {
+                        programs.add(new program(resultSet.getInt("id"),
+                                resultSet.getString("name"),
+                                resultSet.getInt("participants"), "",
+                                resultSet.getString("start"),
+                                resultSet.getString("end")));
+                    } else {
+                        programs.add(new program(resultSet.getString("name")));
+                    }
+
                     break;
                 case 5:
-                    semesters.add(new semester(resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            resultSet.getString("start"),
-                            resultSet.getString("end"),
-                            "semester"));
+                    if (checkColumns(metaData)) {
+                        subjects.add(new subject(resultSet.getString("id"), resultSet.getString("name"),
+                                resultSet.getInt("participants"), "",
+                                resultSet.getString("firstName"),
+                                resultSet.getString("lastName")));
+                    } else {
+                        subjects.add(new subject(resultSet.getString("id")));
+                    }
+
                     break;
                 case 6:
-                    subjects.add(new subject(resultSet.getString("id"),
-                            resultSet.getString("name"),
-                            resultSet.getInt("participants"),
-                            "subject"));
-                    break;
-                case 7:
                     allTables.add(new getAllTables(resultSet.getString("table_name")));
                     break;
 
@@ -102,32 +109,22 @@ public class DTOParser {
         } else if (!availabilities.isEmpty()) {
             for (availability A : availabilities)
             {
-                setIncrementalString(true,"\nWeek:" + A.getWeekId() + "Lecturer: "+ A.getLecturerId()+ "Mandag: " + A.isMonday() + "tirsdag: "+ A.isTuesday()+ "onsdag: " + A.isWednesday() + "torsdag: " + A.isThursday()+ "fredag: " + A.isFriday());
+                setIncrementalString(true,"\n" + A.toString());
             }
 
         } else if (!lecturers.isEmpty()) {
             for(lecturer L : lecturers) {
-                setIncrementalString(true, "\nLecturer ID: " + L.getId()+"Lecturer name: " + L.getFirstName()+"Lecturer lastname: " + L.getLastName()+"Lecturer mail: " + L.getEmail());
+                setIncrementalString(true, L.toString());
             }
 
         } else if (!programs.isEmpty()) {
             for(program P : programs) {
-                setIncrementalString(true, "\nProgram ID: " + P.getId()+"Program Name: " + P.getName());
-            }
-
-        } else if (!semesters.isEmpty()) {
-            for(semester S : semesters) {
-                setIncrementalString(true, "\nSemster ID: " + S.getId()+
-                                                                "Semster Name: " + S.getName()+
-                                                                "Semster Start: " + S.getStart()+
-                                                                "Semster end: " + S.getEnd());
+                setIncrementalString(true, "\n" + P.toString());
             }
 
         } else if (!subjects.isEmpty()) {
             for (subject SU : subjects) {
-                setIncrementalString(true, "\nSubject Code: " + SU.getId()+
-                                                                "Subject Name: " + SU.getName()+
-                                                                "Particants: " + SU.getParticants());
+                setIncrementalString(true, "\n" + SU.toString());
             }
         } else {
             for (getAllTables T: allTables) {
@@ -147,12 +144,19 @@ public class DTOParser {
         }
     }
 
+    private Boolean checkColumns(ResultSetMetaData metaData) throws Exception {
+        if (metaData.getColumnCount() > 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private void clearArrays() {
         availabilities.clear();
         lecturers.clear();
         programs.clear();
         rooms.clear();
-        semesters.clear();
         subjects.clear();
         allTables.clear();
     }

@@ -2,10 +2,10 @@ package Database.DatabaseHandler;
 
 import Database.DTO.DTOParser;
 import Database.DTO.DTO;
-import Database.DatabaseConnection.DBGetConnection;
+import Database.DatabaseConnection.DBConnection;
+import Utility.Util;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 
 public class DBManager {
@@ -13,23 +13,21 @@ public class DBManager {
     private String sqlQuery;
     private DTOParser dbObject;
     private DTO theReturninDTO;
-
+    private Util util;
 
     public DBManager() {
         setSqlQuery("");
         theReturninDTO = new DTO();
         dbObject = new DTOParser();
+        util = new Util("src/main/resources/socketdatabase.properties");
     }
 
-    public DTO getInfo(int tableName) {
-        System.out.println("I should get here");
-        try (DBGetConnection theConnection = new DBGetConnection(); PreparedStatement statement = theConnection.getConnection().prepareStatement(getSqlQuery())) {
-            System.out.println("I'm getting here");
+    public DTO getInfo(int tableNumber) {
+        try (Connection connection = new DBConnection().getConnection();
+             PreparedStatement statement = connection.prepareStatement(getSqlQuery())) {
             ResultSet res = statement.executeQuery();
             //PARSE HER
-            String parsedString = dbObject.parseResults(res, tableName);
-
-            System.out.println("RESULTS: " + parsedString);
+            String parsedString = dbObject.parseResults(res, tableNumber);
 
             theReturninDTO = new DTO(parsedString);
         } catch (Exception e) {
@@ -42,32 +40,60 @@ public class DBManager {
 
 
 
-   // private String [] comboBox = {"Choose your table", "Lectures", "Subject", "Room", "Program", "Semester", "Availability"};
+   // private String [] comboBox = {"Choose your table", "Lectures", VENT -> "Subject", "Room", "Program", "Semester", "Availability"};
 
     public DTO getTables() {
-        setSqlQuery("SELECT table_name FROM information_schema.tables where table_schema = 'westerdals'");
+        setSqlQuery("SELECT table_name FROM information_schema.tables where table_schema = " + "'" + util.getDbName() + "'");
         return getInfo(7);
     }
 
     public DTO getLectures() {
-        setSqlQuery("SELECT id, firstName, lastName, email FROM lecturer");
+        setSqlQuery("SELECT firstName FROM lecturer");
         return getInfo(3);
     }
 
-    public DTO getForeleserByName(String foreleserNavn) {
-        setSqlQuery("SELECT id, firstname, lastName, email FROM lecturer WHERE firstname = " + "'" + foreleserNavn + "'");
+    public DTO getLecturedInfo(String lectureName) {
+        setSqlQuery("SELECT id, firstName, lastName, email FROM lecturer WHERE firstName = " + "'" + lectureName + "'");
         return getInfo(3);
     }
 
-    /* ØVING!
-    public DTO getEmneByEmneKode(String emneKode) {
-        setSqlQuery("SELECT id, name, participants FROM subject WHERE id like " + "'" + emneKode + "'"+";");
-        System.out.println("SQL!!!!!: " + getSqlQuery());
-        return getInfo(6);
+    public DTO getAvailability() {
+        setSqlQuery("SELECT availability.weekId, lecturer.firstName, lecturer.lastName, availability.monday, availability.tuesday, availability.wednesday, availability.thursday, availability.friday " +
+                "FROM lecturer LEFT JOIN availability ON lecturer.id = availability.lecturerId");
+        return getInfo(2);
     }
-    */
 
+    public DTO getRoomsOverview() {
+        setSqlQuery("SELECT id from room");
+        return getInfo(1);
+    }
 
+    public DTO getRoomInformation(String id) {
+        setSqlQuery("SELECT id, capacity, roomType From room WHERE id = " + "'" + id + "'");
+        return getInfo(1);
+    }
+
+    public DTO getProgramsOverview() {
+        setSqlQuery("SELECT name from program");
+        return getInfo(4);
+    }
+
+    public DTO getProgramInformation(String programName) {
+        setSqlQuery("SELECT id, name, participants, start, end From program WHERE name = " + "'" + programName + "'");
+        return getInfo(4);
+    }
+
+    public DTO getSubjectCodes() {
+        setSqlQuery("SELECT id from subject");
+        return getInfo(5);
+    }
+
+    public DTO getInformationBySubjectCode(String subjectCode) {
+        setSqlQuery("SELECT subject.id, subject.name, subject.participants, lecturer.firstName, lecturer.lastName FROM " +
+        "lecturer LEFT JOIN subject ON lecturer.id = subject.lecturerId WHERE subject.id = " + "'" + subjectCode + "'");
+        return getInfo(5);
+
+    }
 
     public String getSqlQuery() {
         return sqlQuery;
