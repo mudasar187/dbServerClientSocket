@@ -5,6 +5,13 @@ import Database.DTO.DTO;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * @author Mudasar Ahmad
+ * @version 1.0
+
+ * Last modified 05 november 2017
+ */
+
 public class ClientSocket {
 
     private Socket serverConnection;

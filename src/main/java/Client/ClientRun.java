@@ -117,6 +117,7 @@ public class ClientRun {
         jFrame.setSize(700,500);
         jFrame.setVisible(true);
         jFrame.setResizable(false);
+        jFrame.setLocationRelativeTo(null);
         jFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
