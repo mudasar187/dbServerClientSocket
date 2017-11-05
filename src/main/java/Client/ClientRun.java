@@ -3,6 +3,12 @@ package Client;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * <p>ClientRun class.</p>
+ *
+ * @author mudasar
+ * @version $Id: $Id
+ */
 public class ClientRun {
     private JComboBox queriesComboBox;
     private JTextArea textArea;
@@ -133,7 +139,8 @@ public class ClientRun {
 
     /**
      * Main som kjøres
-     * @param args
+     *
+     * @param args an array of {@link java.lang.String} objects.
      */
     public static void main(String[] args) {
         clientSocket = new ClientSocket("localhost", 9999);

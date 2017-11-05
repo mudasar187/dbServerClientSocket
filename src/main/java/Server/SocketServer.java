@@ -6,15 +6,18 @@ import java.net.Socket;
 
 /**
  * Klasse for å opprette server
+ *
+ * @author mudasar
+ * @version $Id: $Id
  */
-
 public class SocketServer {
 
     private ServerSocket serverSocket;
 
     /**
      * Oppretter selve serveren
-     * @param port
+     *
+     * @param port a int.
      */
     public SocketServer(int port) {
         try {

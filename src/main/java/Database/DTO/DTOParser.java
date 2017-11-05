@@ -5,6 +5,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 
+/**
+ * <p>DTOParser class.</p>
+ *
+ * @author mudasar
+ * @version $Id: $Id
+ */
 public class DTOParser {
 
     private ArrayList<availability> availabilities;
@@ -18,7 +24,6 @@ public class DTOParser {
 
     /**
      * Tar imot hvilket table det er, og lager en arraylist med objekter
-     *
      */
     public DTOParser() {
       availabilities = new ArrayList<availability>();
@@ -30,9 +35,11 @@ public class DTOParser {
 
     /**
      * legger til objekter i arraylist
-     * @param resultSet
-     * @return
-     * @throws Exception
+     *
+     * @param resultSet a java.sql.ResultSet object.
+     * @throws java.lang.Exception if any.
+     * @param tableNumber a int.
+     * @return a {@link java.lang.String} object.
      */
     public String parseResults(ResultSet resultSet, int tableNumber) throws Exception {
         ResultSetMetaData metaData = resultSet.getMetaData();
@@ -95,6 +102,11 @@ public class DTOParser {
         return makeStringOfOfObject();
     }
 
+    /**
+     * <p>makeStringOfOfObject.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String makeStringOfOfObject() {
         makeString(false, "");
         if (!rooms.isEmpty()) {

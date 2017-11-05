@@ -6,9 +6,11 @@ import java.io.*;
 import java.net.Socket;
 
 /**
+ * <p>ClientSocket class.</p>
+ *
  * @author Mudasar Ahmad
  * @version 1.0
-
+ *
  * Last modified 05 november 2017
  */
 
@@ -19,7 +21,10 @@ public class ClientSocket {
     private ObjectInputStream input;
 
     /**
-     * Denne oppretter connection for client til server
+     * Setting up connection for client to server
+     *
+     * @param host a {@link java.lang.String} object.
+     * @param port a int.
      */
     public ClientSocket(String host, int port) {
         try {
@@ -30,9 +35,12 @@ public class ClientSocket {
     }
 
     /**
+     *
      * Oppretter objekt av outputstream for å kunne sende flere meldinger
+     *
+     * @param message a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
      */
-
     public String sendMessage(String message) {
         try {
             output = new ObjectOutputStream(getServerConnection().getOutputStream());
@@ -75,10 +83,16 @@ public class ClientSocket {
 
     /**
      * Generet settere og gettere
-     * @return
+     *
+     * @return a {@link java.net.Socket} object.
      */
     public Socket getServerConnection() { return serverConnection; }
 
+    /**
+     * <p>Setter for the field <code>serverConnection</code>.</p>
+     *
+     * @param serverConnection a {@link java.net.Socket} object.
+     */
     public void setServerConnection(Socket serverConnection) { this.serverConnection = serverConnection; }
 
 }

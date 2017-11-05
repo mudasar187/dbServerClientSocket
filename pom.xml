@@ -49,15 +49,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ORMLite -->
-        <!-- https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-core -->
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-core</artifactId>
-            <version>4.48</version>
-        </dependency>
-
-
 
     </dependencies>
 </project>

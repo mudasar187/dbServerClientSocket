@@ -3,15 +3,30 @@ package Server;
 import Database.DatabaseHandler.DBManager;
 import Database.DTO.DTO;
 
+/**
+ * <p>ThreadManager class.</p>
+ *
+ * @author mudasar
+ * @version $Id: $Id
+ */
 public class ThreadManager {
 
     private DBManager dbManager = new DBManager();
     private DTO theDto;
 
+    /**
+     * <p>Constructor for ThreadManager.</p>
+     */
     public ThreadManager() {
         theDto = new DTO();
     }
 
+    /**
+     * <p>getSpesificInformationFromDatabase.</p>
+     *
+     * @param messageFromClient a {@link java.lang.String} object.
+     * @return a {@link Database.DTO.DTO} object.
+     */
     public DTO getSpesificInformationFromDatabase(String messageFromClient) {
         String splitUpWords = "";
         String resultString = "";
@@ -38,6 +53,12 @@ public class ThreadManager {
     }
 
     //Denne bestemmer hva som skal bli returnert fra databasen til serverThread som deretter sender til client
+    /**
+     * <p>getInformationFromDataBase.</p>
+     *
+     * @param messageFromClient a {@link java.lang.String} object.
+     * @return a {@link Database.DTO.DTO} object.
+     */
     public DTO getInformationFromDataBase(String messageFromClient) {
         switch (messageFromClient) {
             case "":

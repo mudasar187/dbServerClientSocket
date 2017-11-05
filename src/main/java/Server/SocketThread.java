@@ -7,6 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * <p>SocketThread class.</p>
+ *
+ * @author mudasar
+ * @version $Id: $Id
+ */
 public class SocketThread implements Runnable {
 
     private Socket clientSocket;
@@ -19,7 +25,8 @@ public class SocketThread implements Runnable {
 
     /**
      * Oppretter en socket, og connecter til server
-     * @param clientSocket
+     *
+     * @param clientSocket a {@link java.net.Socket} object.
      */
     public SocketThread(Socket clientSocket) {
         messageFromClientToServer = "";
@@ -67,6 +74,11 @@ public class SocketThread implements Runnable {
         }
     }
 
+    /**
+     * <p>Setter for the field <code>clientSocket</code>.</p>
+     *
+     * @param clientSocket a {@link java.net.Socket} object.
+     */
     public void setClientSocket(Socket clientSocket) {
 
         this.clientSocket = clientSocket;

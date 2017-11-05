@@ -7,6 +7,8 @@ import java.sql.*;
 import java.sql.SQLException;
 
 /**
+ * <p>DBConnection class.</p>
+ *
  * @author Mudasar Ahmad
  * @version 1.0
  * <p>
@@ -15,8 +17,6 @@ import java.sql.SQLException;
  * <p>
  * Last modified 19 october 2017
  */
-
-
 public class DBConnection {
 
     /**
