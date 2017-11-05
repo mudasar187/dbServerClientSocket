@@ -21,10 +21,6 @@ public class lecturer {
         setFirstName(firstName);
     }
 
-    public int getId() {
-
-        return id;
-    }
 
     public void setId(int id) {
 
@@ -41,30 +37,20 @@ public class lecturer {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
 
-        return lastName;
-    }
 
     public void setLastName(String lastName) {
 
         this.lastName = lastName;
     }
 
-    public String getEmail() {
 
-        return email;
-    }
 
     public void setEmail(String email) {
 
         this.email = email;
     }
 
-    public String getType() {
-
-        return type;
-    }
 
     public void setType(String type) {
 
@@ -75,12 +61,11 @@ public class lecturer {
     public String toString() {
         String returnString = "";
         if (lastName != null) {
-            returnString = "lecturer{" +
-                    "id=" + id +
-                    ", firstName='" + firstName + '\'' +
-                    ", lastName='" + lastName + '\'' +
-                    ", email='" + email + '\'' +
-                    '}';
+            returnString = "Id: " + id +
+                    "\nFirstName: " + firstName +
+                    "\nLastName: " + lastName  +
+                    "\nEmail: " + email +
+                    "\n";
         } else {
             returnString = "\n Firstname: " + getFirstName();
         }

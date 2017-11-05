@@ -70,11 +70,6 @@ public class subject {
         this.particants = particants;
     }
 
-    public String getType() {
-
-        return type;
-    }
-
     public void setType(String type) {
 
         this.type = type;
@@ -84,14 +79,13 @@ public class subject {
     public String toString() {
         String returnString = "";
         if (getSubjectName() != null) {
-            returnString = "subject{" +
-                    "id='" + id + '\'' +
-                    ", name='" + getSubjectName() + '\'' +
-                    ", particants=" + getParticants() +
-                    ", teacher name= " + getFirstName() + " " + getLastName() +
-                    '}';
+            returnString = "SubjectCode: " + id +
+                    "\nSubject name: " + getSubjectName() +
+                    "\nParticants: " + getParticants() +
+                    "\nTeacher: " + getFirstName() + " " + getLastName() +
+                    "\n";
         } else {
-            returnString = getId();
+            returnString = "\n Subject code: "+ getId();
         }
         return returnString;
     }

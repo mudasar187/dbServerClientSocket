@@ -13,8 +13,6 @@ import java.net.Socket;
 public class SocketServer {
 
     private ServerSocket serverSocket;
-    private DataOutputStream output;
-    private DataInputStream input;
 
     /**
      * Oppretter selve serveren

@@ -53,10 +53,10 @@ public class SocketThread implements Runnable {
             if(messageFromClientToServer.equals("exit"))
             {
                 //Assigner ny DTO til dtoToBeSent
-                dtoToBeSent = new DTO("You are now disconnected");
+                dtoToBeSent = new DTO("### You are now disconnected");
                 whileIsRunning = false;
             } else {
-                System.out.println("You are now sending response to client");
+                System.out.println("### Sending response to client ...");
                 //Assigner ny dto til dtoToBeSent
                 dtoToBeSent = threadManager.getInformationFromDataBase(messageFromClientToServer);
             }
@@ -84,7 +84,7 @@ public class SocketThread implements Runnable {
                 output = new ObjectOutputStream(clientSocket.getOutputStream());
                 getMessageFromClient();
             }
-            System.out.println("Client is disconnecting");
+            System.out.println("### Client is disconnecting ...");
             input.close();
             output.close();
             clientSocket.close();

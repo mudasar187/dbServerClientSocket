@@ -80,8 +80,4 @@ public class Util {
     public int getSocketIpPort() { return socketIpPort; }
 
     private void setSocketIpPort(int socketIpPort) { this.socketIpPort = socketIpPort; }
-
-    public Properties getPropFile() { return propFile; }
-
-    private void setPropFile(Properties propFile) { this.propFile = propFile; }
 }

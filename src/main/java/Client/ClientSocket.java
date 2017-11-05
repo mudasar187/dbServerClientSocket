@@ -54,12 +54,12 @@ public class ClientSocket {
         input = new ObjectInputStream(getServerConnection().getInputStream());
         System.out.println("### Getting respons from server ...");
 
-        DTO theDTO = (DTO) input.readObject();
+        DTO dto = (DTO) input.readObject();
 
-        if (theDTO.getParsedString().equals("")) {
-            return "### Could not find anything";
+        if (dto.getParsedString().equals("")) {
+            return "### Could not find anything ...";
         } else {
-            return theDTO.getParsedString();
+            return dto.getParsedString();
         }
 
 

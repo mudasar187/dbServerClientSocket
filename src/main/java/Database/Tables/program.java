@@ -79,15 +79,14 @@ public class program {
     public String toString() {
         String returnString = "";
         if (getId() != null) {
-            returnString = "program{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    ", participants + " + getParticipants() +
-                    ", start " + getStart() +
-                    ", end " + getEnd() +
-                    '}';
+            returnString = "Id: " + id +
+                    "\nProgram ame: " + name +
+                    "\nParticipants: " + getParticipants() +
+                    "\nStart: " + getStart() +
+                    "\nEnd: " + getEnd() +
+                    "\n";
         } else {
-            returnString = getName();
+            returnString = "\n Program name: "+ getName();
         }
         return returnString;
     }

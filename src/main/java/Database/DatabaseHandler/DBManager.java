@@ -12,12 +12,12 @@ public class DBManager {
 
     private String sqlQuery;
     private DTOParser dbObject;
-    private DTO theReturninDTO;
+    private DTO returnDTO;
     private Util util;
 
     public DBManager() {
         setSqlQuery("");
-        theReturninDTO = new DTO();
+        returnDTO = new DTO();
         dbObject = new DTOParser();
         util = new Util("src/main/resources/socketdatabase.properties");
     }
@@ -29,18 +29,13 @@ public class DBManager {
             //PARSE HER
             String parsedString = dbObject.parseResults(res, tableNumber);
 
-            theReturninDTO = new DTO(parsedString);
+            returnDTO = new DTO(parsedString);
         } catch (Exception e) {
-            System.out.println("Exception!!!");
-            System.out.println("Error occured: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
-        return theReturninDTO;
+        return returnDTO;
 
     }
-
-
-
-   // private String [] comboBox = {"Choose your table", "Lectures", VENT -> "Subject", "Room", "Program", "Semester", "Availability"};
 
 
     public DTO getLectures() {

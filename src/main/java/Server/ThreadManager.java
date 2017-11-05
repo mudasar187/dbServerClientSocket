@@ -40,7 +40,7 @@ public class ThreadManager {
     //Denne bestemmer hva som skal bli returnert fra databasen til serverThread som deretter sender til client
     public DTO getInformationFromDataBase(String messageFromClient) {
         switch (messageFromClient) {
-            case "Welcome":
+            case "":
                 theDto = makeWelcomeMessage();
                 break;
             case "Lectures":
@@ -67,7 +67,12 @@ public class ThreadManager {
 
     private DTO makeWelcomeMessage() {
         DTO dto = new DTO();
-        dto.setParsedString("Welcome");
+        dto.setParsedString(" Welcome !\n"+
+                " You can click on the box above to select options.\n" +
+                " You can choose to retrieve all teachers, topics, rooms, programs and accessibility for teachers.\n" +
+                " When you select one of these options, you will get a name for these choices.\n" +
+                "\n If you would like more information about the teacher, subject, room or program, you can type it in the search box below.\n"+
+                "\n Enjoy !");
         return dto;
     }
 }

@@ -12,7 +12,7 @@ public class DTOParser {
     private ArrayList<program> programs;
     private ArrayList<room> rooms;
     private ArrayList<subject> subjects;
-    private ArrayList<getAllTables> allTables;
+
 
     private String incrementalString;
 
@@ -26,7 +26,6 @@ public class DTOParser {
       programs = new ArrayList<program>();
       rooms = new ArrayList<room>();
       subjects = new ArrayList<subject>();
-      allTables = new ArrayList<getAllTables>();
     }
 
     /**
@@ -90,9 +89,6 @@ public class DTOParser {
                     }
 
                     break;
-                case 6:
-                    allTables.add(new getAllTables(resultSet.getString("table_name")));
-                    break;
 
             }
         }
@@ -100,35 +96,31 @@ public class DTOParser {
     }
 
     public String makeStringOfOfObject() {
-        setIncrementalString(false, "");
+        makeString(false, "");
         if (!rooms.isEmpty()) {
             for (room R : rooms)
             {
-                setIncrementalString(true, "\n " + R.toString());
+                makeString(true, "\n " + R.toString());
             }
         } else if (!availabilities.isEmpty()) {
             for (availability A : availabilities)
             {
-                setIncrementalString(true,"\n" + A.toString());
+                makeString(true,"\n" + A.toString());
             }
 
         } else if (!lecturers.isEmpty()) {
             for(lecturer L : lecturers) {
-                setIncrementalString(true, L.toString());
+                makeString(true,"\n" + L.toString());
             }
 
         } else if (!programs.isEmpty()) {
             for(program P : programs) {
-                setIncrementalString(true, "\n" + P.toString());
+                makeString(true, "\n" + P.toString());
             }
 
         } else if (!subjects.isEmpty()) {
             for (subject SU : subjects) {
-                setIncrementalString(true, "\n" + SU.toString());
-            }
-        } else {
-            for (getAllTables T: allTables) {
-                setIncrementalString(true, T.toString());
+                makeString(true, "\n" + SU.toString());
             }
         }
 
@@ -136,7 +128,7 @@ public class DTOParser {
         return this.incrementalString;
     }
 
-    private void setIncrementalString(Boolean increment, String newString) {
+    private void makeString(Boolean increment, String newString) {
         if (increment) {
             this.incrementalString += newString;
         } else {
@@ -158,7 +150,6 @@ public class DTOParser {
         programs.clear();
         rooms.clear();
         subjects.clear();
-        allTables.clear();
     }
 
 }

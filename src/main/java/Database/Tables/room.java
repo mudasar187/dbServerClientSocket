@@ -29,11 +29,6 @@ public class room {
         this.id = id;
     }
 
-    public int getCapacity() {
-
-        return capacity;
-    }
-
     public void setCapacity(int capacity) {
 
         this.capacity = capacity;
@@ -49,11 +44,6 @@ public class room {
         this.roomType = roomType;
     }
 
-    public String getType() {
-
-        return type;
-    }
-
     public void setType(String type) {
 
         this.type = type;
@@ -62,13 +52,12 @@ public class room {
     public String toString() {
         String returnString = "";
         if (getRoomType() != null) {
-            returnString = "room{" +
-                    "id='" + id + '\'' +
-                    ", capacity=" + capacity +
-                    ", roomType='" + roomType + '\'' +
-                    '}';
+            returnString = "Roomnumber: " + id +
+                    "\nCapacity: " + capacity +
+                    "\nRoomtype: " + roomType +
+                    "\n";
         } else {
-            returnString = getId() + ", ";
+            returnString = "\nRoom number: "+ getId();
         }
         return returnString;
     }

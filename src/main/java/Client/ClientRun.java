@@ -6,7 +6,6 @@ import java.awt.event.*;
 public class ClientRun {
     private JComboBox queriesComboBox;
     private JTextArea textArea;
-    private JButton clearButton;
     private JButton enterButton;
     private JPanel mainGUI;
     private JButton exitButton;
@@ -16,7 +15,7 @@ public class ClientRun {
 
 
     //Quieries combobox
-    private String [] comboBox = {"Welcome", "Lectures", "Subject", "Room", "Program", "Availability"};
+    private String [] comboBox = {"", "Lectures", "Subject", "Room", "Program", "Availability"};
     private String selectedItemInComboBox;
 
 
@@ -66,7 +65,7 @@ public class ClientRun {
             public void actionPerformed(ActionEvent e) {
                 searchField.setText("");
                 selectedItemInComboBox = (String) queriesComboBox.getSelectedItem();
-                if (!selectedItemInComboBox.equals("Welcome")) {
+                if (!selectedItemInComboBox.equals("")) {
                     if (selectedItemInComboBox.equals("Availability")) {
                         searchField.setEditable(false);
                         enterButton.setEnabled(false);
@@ -112,7 +111,7 @@ public class ClientRun {
      * Kjører jframen
      */
     private static void setUpGUI() {
-        JFrame jFrame = new JFrame("Database");
+        JFrame jFrame = new JFrame("Westerdals Database");
         jFrame.setContentPane(new ClientRun().mainGUI);
         jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         jFrame.setSize(700,500);
