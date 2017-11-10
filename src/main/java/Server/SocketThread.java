@@ -24,7 +24,7 @@ public class SocketThread implements Runnable {
     private DTO theDto;
 
     /**
-     * Oppretter en socket, og connecter til server
+     * Denne tar imot hvilken klient som kobles til fra server siden
      *
      * @param clientSocket a {@link java.net.Socket} object.
      */
@@ -49,12 +49,12 @@ public class SocketThread implements Runnable {
 
 
     /**
-     * Denne metoden sender message som et objekt til client fra thread
+     * Denne metoden sender message som et objekt til client
      */
     public void sendMessageToClient() {
         try {
             //Lager nytt object av DTO
-            DTO dtoToBeSent = new DTO();
+            DTO dtoToBeSent;
 
 
             if(messageFromClientToServer.equals("exit"))

@@ -22,6 +22,9 @@ public class ThreadManager {
     }
 
     /**
+     *
+     * Denne håndterer forespørsel, f.eks hvis bruker skriver Per, skal dette gjenkjennes og hentes fra lecturer tabellen
+     *
      * <p>getSpesificInformationFromDatabase.</p>
      *
      * @param messageFromClient a {@link java.lang.String} object.
@@ -61,7 +64,7 @@ public class ThreadManager {
      */
     public DTO getInformationFromDataBase(String messageFromClient) {
         switch (messageFromClient) {
-            case "":
+            case "Choose options here":
                 theDto = makeWelcomeMessage();
                 break;
             case "Lectures":

@@ -11,9 +11,8 @@ import java.net.Socket;
  * @author Mudasar Ahmad
  * @version 1.0
  *
- * Last modified 05 november 2017
+ * Last modified 10 november 2017
  */
-
 public class ClientSocket {
 
     private Socket serverConnection;
@@ -30,13 +29,14 @@ public class ClientSocket {
         try {
             setServerConnection(new Socket(host, port));
         } catch (Exception e) {
+            // If server is not on
             System.out.println("### Cannot find any server to connect!");
         }
     }
 
     /**
      *
-     * Oppretter objekt av outputstream for å kunne sende flere meldinger
+     * This method send message from client to server by creating an object of ObjectOutputStream
      *
      * @param message a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
@@ -49,20 +49,25 @@ public class ClientSocket {
                 System.out.println("### Client sending message to server ...");
                 output.writeUTF(message);
                 output.flush();
+
+                // Answer from server
                 return getMessage();
             }
         } catch (Exception e) {
             System.out.println("### Client cannot send message to server ...");
         }
-
+        // If parameter is empty string
         return "### You must enter some value";
 
     }
 
 
-
     /**
-     * Samme som over, bare får input
+     *
+     * This method receive answer from server by creating an object of ObjectInputStream
+     *
+     * @return dto parsed object
+     * @throws Exception
      */
     private String getMessage() throws Exception {
 
@@ -72,8 +77,10 @@ public class ClientSocket {
         DTO dto = (DTO) input.readObject();
 
         if (dto.getParsedString().equals("")) {
+            // Return this message if no value found
             return "### Could not find anything ...";
         } else {
+            // Return parsed value
             return dto.getParsedString();
         }
 
@@ -82,15 +89,14 @@ public class ClientSocket {
 
 
     /**
-     * Generet settere og gettere
+     * Get server connection
      *
      * @return a {@link java.net.Socket} object.
      */
     public Socket getServerConnection() { return serverConnection; }
 
     /**
-     * <p>Setter for the field <code>serverConnection</code>.</p>
-     *
+     * Set server connection
      * @param serverConnection a {@link java.net.Socket} object.
      */
     public void setServerConnection(Socket serverConnection) { this.serverConnection = serverConnection; }

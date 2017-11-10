@@ -3,6 +3,9 @@ package Database.DTO;
 import java.io.Serializable;
 
 /**
+ *
+ * Denne klassen tar imot en string og gir muligheten til å sende ut stringen
+ *
  * <p>DTO class.</p>
  *
  * @author mudasar
@@ -24,6 +27,7 @@ public class DTO implements Serializable {
      * @param parsedString a {@link java.lang.String} object.
      */
     public DTO(String parsedString) {
+
         setParsedString(parsedString);
     }
 
@@ -34,6 +38,7 @@ public class DTO implements Serializable {
      * @param parsedString a {@link java.lang.String} object.
      */
     public void setParsedString(String parsedString) {
+
         this.parsedString = parsedString;
     }
 

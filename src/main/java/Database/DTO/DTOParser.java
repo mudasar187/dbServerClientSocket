@@ -34,7 +34,7 @@ public class DTOParser {
     }
 
     /**
-     * legger til objekter i arraylist
+     * Denne metoden gjør resultset spørringen, legger alt info i en arraylist utifra hva den henter basert på tabell nr
      *
      * @param resultSet a java.sql.ResultSet object.
      * @throws java.lang.Exception if any.
@@ -103,6 +103,10 @@ public class DTOParser {
     }
 
     /**
+     *
+     * Denne looper gjennom arraylisten som har innhold, så lager man en stor streng med arraylistens innhold,
+     * så retunerer stringen
+     *
      * <p>makeStringOfOfObject.</p>
      *
      * @return a {@link java.lang.String} object.
@@ -140,6 +144,11 @@ public class DTOParser {
         return this.incrementalString;
     }
 
+    /**
+     * Forstørrer strengen om ønsket basert på parameter
+     * @param increment
+     * @param newString
+     */
     private void makeString(Boolean increment, String newString) {
         if (increment) {
             this.incrementalString += newString;
@@ -148,6 +157,13 @@ public class DTOParser {
         }
     }
 
+    /**
+     * Sjekker om det er flere kolonner enn en kolonne i resultset, hvis flere, kjør den med flere, hvis en, kjør den ene, se over
+     *
+     * @param metaData
+     * @return
+     * @throws Exception
+     */
     private Boolean checkColumns(ResultSetMetaData metaData) throws Exception {
         if (metaData.getColumnCount() > 1) {
             return true;
@@ -156,6 +172,10 @@ public class DTOParser {
         }
     }
 
+
+    /**
+     * Rense arraylist etter at strengen (increment string) som skal retuneres er laget
+     */
     private void clearArrays() {
         availabilities.clear();
         lecturers.clear();

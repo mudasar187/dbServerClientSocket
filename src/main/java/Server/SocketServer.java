@@ -30,7 +30,7 @@ public class SocketServer {
 
 
     /**
-     * Lytter til klient som skal kobles til
+     * Lytter til klient som skal kobles til, og oppretter en tråd for hver client som kobletr til
      */
     public void serverListener() {
 

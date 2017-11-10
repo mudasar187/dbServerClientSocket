@@ -11,8 +11,10 @@ import java.sql.*;
 /**
  * <p>DBManager class.</p>
  *
- * @author mudasar
- * @version $Id: $Id
+ * @author Mudasar Ahmad
+ * @version 1.0
+ *
+ * Last modified 10 november 2017
  */
 public class DBManager {
 
@@ -32,6 +34,9 @@ public class DBManager {
     }
 
     /**
+     * her gjør man spørringer basert på sql spørringer og hvilken tabell nr.
+     * info hentes fra databasen, så til dto parser, parser om til string for så deretter retunere et parsed objekt
+     *
      * <p>getInfo.</p>
      *
      * @param tableNumber a int.

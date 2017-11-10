@@ -4,10 +4,12 @@ import javax.swing.*;
 import java.awt.event.*;
 
 /**
- * <p>ClientRun class.</p>
+ * <p>Client run class.</p>
  *
- * @author mudasar
- * @version $Id: $Id
+ * @author Mudasar Ahmad
+ * @version 1.0
+ *
+ * Last modified 10 november 2017
  */
 public class ClientRun {
     private JComboBox queriesComboBox;
@@ -20,29 +22,26 @@ public class ClientRun {
     private static ClientSocket clientSocket;
 
 
-    //Quieries combobox
-    private String [] comboBox = {"", "Lectures", "Subject", "Room", "Program", "Availability"};
+    //Queries combobox
+    private String [] comboBox = {"Choose options here", "Lectures", "Subject", "Room", "Program", "Availability"};
     private String selectedItemInComboBox;
 
 
     /**
-     * Denne kjøres når jg setter opp jframe
+     * Constructor
      */
     public ClientRun() {
 
-        // Dette er den første som kjøres slik at "Velkommen" vises av server
-        selectedItemInComboBox = comboBox[0];
+        selectedItemInComboBox = comboBox[0]; // Runs first so client get "Welcome" message from server
         textArea.setText(clientSocket.sendMessage(selectedItemInComboBox));
         searchField.setEditable(false);
         enterButton.setEnabled(false);
-        /**
-         * Setter opp config for gui
-         */
+
         configurationGUI();
 
 
         /**
-         * Når trykker exit, avsluttes etter at connection avsluttes, og programmet lukkes
+         * When user enter exit button, clientSocket send an message to server to exit then close the GUI
          */
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -53,7 +52,7 @@ public class ClientRun {
         });
 
         /**
-         * Enter button tar imot det som står i combobox og generelt når du skriver inn søke ord
+         * Enter button receive whats in comboBox and when you enter some value in searchField
          */
         enterButton.addActionListener(new ActionListener() {
             @Override
@@ -64,14 +63,14 @@ public class ClientRun {
         });
 
         /**
-         * Dette er action listener til combobox
+         * Action listener to comboBox
          */
         queriesComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 searchField.setText("");
                 selectedItemInComboBox = (String) queriesComboBox.getSelectedItem();
-                if (!selectedItemInComboBox.equals("")) {
+                if (!selectedItemInComboBox.equals("Choose options here")) {
                     if (selectedItemInComboBox.equals("Availability")) {
                         searchField.setEditable(false);
                         enterButton.setEnabled(false);
@@ -101,7 +100,7 @@ public class ClientRun {
 
 
     /**
-     * Setter opp combo box
+     * Set up comboBox
      */
     private void configurationGUI() {
         textArea.setEditable(false);
@@ -114,7 +113,7 @@ public class ClientRun {
 
 
     /**
-     * Kjører jframen
+     * Run jFrame
      */
     private static void setUpGUI() {
         JFrame jFrame = new JFrame("Westerdals Database");
@@ -138,7 +137,7 @@ public class ClientRun {
 
 
     /**
-     * Main som kjøres
+     * Main method to run client
      *
      * @param args an array of {@link java.lang.String} objects.
      */

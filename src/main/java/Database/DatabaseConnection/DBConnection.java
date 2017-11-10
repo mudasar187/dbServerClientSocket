@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * DBConnection
  * Class for connection to database
  * <p>
- * Last modified 19 october 2017
+ * Last modified 10 november 2017
  */
 public class DBConnection {
 
@@ -43,7 +43,7 @@ public class DBConnection {
         catch (SQLException se)
         {
             //se.printStackTrace();
-            System.out.println("\n### Connection error ###");
+            System.out.println("\n### Database connection error ###");
         }
         return connection;
     }

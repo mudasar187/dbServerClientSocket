@@ -25,8 +25,15 @@ public class ClientSocketTest {
     }
 
     @Test
-    public void sendMessage() throws Exception {
-        Assert.assertEquals(clientSocket.sendMessage("Welcome"), "Welcome");
+    public void sendMessageEmptyStringToReturnWelcomeMessage() throws Exception {
+        Assert.assertEquals(clientSocket.sendMessage("Choose options here"), " Welcome !\n" +
+                " You can click on the box above to select options.\n" +
+                " You can choose to retrieve all teachers, topics, rooms, programs and accessibility for teachers.\n" +
+                " When you select one of these options, you will get a name for these choices.\n" +
+                "\n" +
+                " If you would like more information about teacher, subject, room or program, you can type it in the search field.\n" +
+                "\n" +
+                " Enjoy !");
     }
 
     @Test

@@ -2,6 +2,7 @@ package Server;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -18,6 +19,7 @@ public class ThreadManagerTest {
     @Test
     public void getLecturersTest() throws Exception {
         Assert.assertNotNull(threadManager.getInformationFromDataBase("Lectures").getParsedString());
+
     }
 
     @Test
