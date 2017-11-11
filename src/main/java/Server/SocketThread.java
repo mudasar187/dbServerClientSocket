@@ -27,7 +27,6 @@ public class SocketThread implements Runnable {
 
     /**
      * This method receive which client is getting connected from server side
-     * Denne tar imot hvilken klient som kobles til fra server siden
      *
      * @param clientSocket a {@link java.net.Socket} object.
      */
@@ -40,7 +39,6 @@ public class SocketThread implements Runnable {
 
     /**
      * This method receive message from client
-     * Mottar beskjed fra client å sender beskjed til send metoden
      */
     public void getMessageFromClient() {
         try {
@@ -53,8 +51,7 @@ public class SocketThread implements Runnable {
 
 
     /**
-     * This message send message to client based on what client is send message about
-     * Denne metoden sender message som et objekt til client
+     * This method send message to client as an object
      */
     public void sendMessageToClient() {
         try {

@@ -33,38 +33,50 @@ public class ThreadManager {
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getSpesificInformationFromDatabase(String messageFromClient) {
-        String splitUpWords = "";
-        String resultString = "";
+
+        String splitUpWords;
+        String resultString;
+
         if (messageFromClient.contains("Lectures ")) {
             splitUpWords = messageFromClient.substring(0, 9);
             resultString = messageFromClient.replaceAll(splitUpWords, "");
             theDto = dbHandler.getLecturedInfo(resultString);
-        } else if (messageFromClient.contains("Subject ")) {
+        }
+        else if (messageFromClient.contains("Subject "))
+        {
             splitUpWords = messageFromClient.substring(0, 8);
             resultString = messageFromClient.replaceAll(splitUpWords, "");
             theDto = dbHandler.getInformationBySubjectCode(resultString);
-        } else if (messageFromClient.contains("Room ")) {
+        }
+        else if (messageFromClient.contains("Room "))
+        {
             splitUpWords = messageFromClient.substring(0, 5);
             resultString = messageFromClient.replaceAll(splitUpWords, "");
             theDto = dbHandler.getRoomInformation(resultString);
-        } else if (messageFromClient.contains("Program ")) {
+        }
+        else if (messageFromClient.contains("Program "))
+        {
             splitUpWords = messageFromClient.substring(0, 8);
             resultString = messageFromClient.replaceAll(splitUpWords, "");
             theDto = dbHandler.getProgramInformation(resultString);
-        } else {
-            theDto = new DTO("No match for search value " + messageFromClient);
+        }
+        else
+        {
+            theDto = new DTO("### No match for search value " + messageFromClient);
         }
         return theDto;
     }
 
-    //Denne bestemmer hva som skal bli returnert fra databasen til serverThread som deretter sender til client
+
     /**
+     * This method decide what going to be returned from database to serverThread then going back to client
      * <p>getInformationFromDataBase.</p>
      *
      * @param messageFromClient a {@link java.lang.String} object.
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getInformationFromDataBase(String messageFromClient) {
+
         switch (messageFromClient) {
             case "Choose options here":
                 theDto = makeWelcomeMessage();
@@ -91,6 +103,10 @@ public class ThreadManager {
         return theDto;
     }
 
+    /**
+     * This is the welcome message, this one shows up first when you start the clientGUI, server sending an "Welcome" message to client
+     * @return
+     */
     private DTO makeWelcomeMessage() {
         DTO dto = new DTO();
         dto.setParsedString(" Welcome !\n"+

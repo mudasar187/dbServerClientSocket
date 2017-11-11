@@ -32,7 +32,7 @@ public class SocketServer {
 
 
     /**
-     * This method listen to client which going to the connected, create thread for each client who get connected
+     * This method listen to client who going to be connected, create thread for each client who get connected
      */
     public void serverListener() {
 

@@ -29,7 +29,7 @@ public class ThreadManagerTest {
 
     @Test
     public void getNullFromDatabase() {
-        Assert.assertEquals(threadManager.getInformationFromDataBase("nonesense").getParsedString(), "No match for search value nonesense");
+        Assert.assertEquals(threadManager.getInformationFromDataBase("nonesense").getParsedString(), "### No match for search value nonesense");
     }
 
     @Test

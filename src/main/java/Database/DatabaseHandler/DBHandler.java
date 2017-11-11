@@ -18,7 +18,7 @@ import java.sql.*;
  */
 public class DBHandler {
 
-    private String sqlQuery;
+    private String query;
     private DTOParser dbObject;
     private DTO returnDTO;
     private Util util;
@@ -27,7 +27,7 @@ public class DBHandler {
      * <p>Constructor for DBManager.</p>
      */
     public DBHandler() {
-        setSqlQuery("");
+        setQuery("");
         returnDTO = new DTO();
         dbObject = new DTOParser();
         util = new Util("src/main/resources/socketdatabase.properties");
@@ -35,7 +35,7 @@ public class DBHandler {
 
     /**
      *
-     * This method makes queries based on setSqlQuery and which table number the queries is getting from
+     * This method makes queries based on setQuery and which table number the queries is getting from
      * Information is received from database, then parse to string and then return parsed object
      *
      * <p>getInfo.</p>
@@ -45,7 +45,7 @@ public class DBHandler {
      */
     public DTO getInfo(int tableNumber) {
         try (Connection connection = new DBConnection().getConnection();
-             PreparedStatement statement = connection.prepareStatement(getSqlQuery())) {
+             PreparedStatement statement = connection.prepareStatement(getQuery())) {
             ResultSet res = statement.executeQuery();
             // Parse here based on which tablenumber -> DTOParser
             String parsedString = dbObject.parseResults(res, tableNumber);
@@ -61,126 +61,126 @@ public class DBHandler {
 
 
     /**
-     * setSqlQuery to get only firstNames of all lectures
+     * setQuery to get only firstNames of all lectures
      * <p>getLectures.</p>
      *
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getLectures() {
-        setSqlQuery("SELECT firstName FROM lecturer");
+        setQuery("SELECT firstName FROM lecturer");
         return getInfo(3);
     }
 
     /**
-     * setSqlQuery to get all information about the one specific teacher name
+     * setQuery to get all information about the one specific teacher name
      * <p>getLecturedInfo.</p>
      *
      * @param lectureName a {@link java.lang.String} object.
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getLecturedInfo(String lectureName) {
-        setSqlQuery("SELECT id, firstName, lastName, email FROM lecturer WHERE firstName = " + "'" + lectureName + "'");
+        setQuery("SELECT id, firstName, lastName, email FROM lecturer WHERE firstName = " + "'" + lectureName + "'");
         return getInfo(3);
     }
 
     /**
-     * setSqlQuery to get all information about all availabilities for all teachers
+     * setQuery to get all information about all availabilities for all teachers
      * <p>getAvailability.</p>
      *
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getAvailability() {
-        setSqlQuery("SELECT availability.weekId, lecturer.firstName, lecturer.lastName, availability.monday, availability.tuesday, availability.wednesday, availability.thursday, availability.friday " +
+        setQuery("SELECT availability.weekId, lecturer.firstName, lecturer.lastName, availability.monday, availability.tuesday, availability.wednesday, availability.thursday, availability.friday " +
                 "FROM lecturer LEFT JOIN availability ON lecturer.id = availability.lecturerId");
         return getInfo(2);
     }
 
     /**
-     * setSqlQuery to get only roomnumbers for all rooms
+     * setQuery to get only roomnumbers for all rooms
      * <p>getRoomsOverview.</p>
      *
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getRoomsOverview() {
-        setSqlQuery("SELECT id from room");
+        setQuery("SELECT id from room");
         return getInfo(1);
     }
 
     /**
-     * setSqlQuery to get all information about the the specific room number
+     * setQuery to get all information about the the specific room number
      * <p>getRoomInformation.</p>
      *
      * @param id a {@link java.lang.String} object.
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getRoomInformation(String id) {
-        setSqlQuery("SELECT id, capacity, roomType From room WHERE id = " + "'" + id + "'");
+        setQuery("SELECT id, capacity, roomType From room WHERE id = " + "'" + id + "'");
         return getInfo(1);
     }
 
     /**
-     * setSqlQuery to get only names for all programs
+     * setQuery to get only names for all programs
      * <p>getProgramsOverview.</p>
      *
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getProgramsOverview() {
-        setSqlQuery("SELECT name from program");
+        setQuery("SELECT name from program");
         return getInfo(4);
     }
 
     /**
-     * setSqlQuery to get all information about the specific program name
+     * setQuery to get all information about the specific program name
      * <p>getProgramInformation.</p>
      *
      * @param programName a {@link java.lang.String} object.
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getProgramInformation(String programName) {
-        setSqlQuery("SELECT id, name, participants, start, end From program WHERE name = " + "'" + programName + "'");
+        setQuery("SELECT id, name, participants, start, end From program WHERE name = " + "'" + programName + "'");
         return getInfo(4);
     }
 
     /**
-     * setSqlQuery to get only subjectcodes for all subjects
+     * setQuery to get only subjectcodes for all subjects
      * <p>getSubjectCodes.</p>
      *
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getSubjectCodes() {
-        setSqlQuery("SELECT id from subject");
+        setQuery("SELECT id from subject");
         return getInfo(5);
     }
 
     /**
-     * setSqlQuery to get all information about the specific subject code
+     * setQuery to get all information about the specific subject code
      * <p>getInformationBySubjectCode.</p>
      *
      * @param subjectCode a {@link java.lang.String} object.
      * @return a {@link Database.DTO.DTO} object.
      */
     public DTO getInformationBySubjectCode(String subjectCode) {
-        setSqlQuery("SELECT subject.id, subject.name, subject.participants, lecturer.firstName, lecturer.lastName FROM " +
+        setQuery("SELECT subject.id, subject.name, subject.participants, lecturer.firstName, lecturer.lastName FROM " +
         "lecturer LEFT JOIN subject ON lecturer.id = subject.lecturerId WHERE subject.id = " + "'" + subjectCode + "'");
         return getInfo(5);
 
     }
 
     /**
-     * <p>Getter for the field <code>sqlQuery</code>.</p>
+     * <p>Getter for the field <code>query</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getSqlQuery() {
-        return sqlQuery;
+    public String getQuery() {
+        return query;
     }
 
     /**
-     * <p>Setter for the field <code>sqlQuery</code>.</p>
+     * <p>Setter for the field <code>query</code>.</p>
      *
-     * @param sqlQuery a {@link java.lang.String} object.
+     * @param query a {@link java.lang.String} object.
      */
-    public void setSqlQuery(String sqlQuery) {
-        this.sqlQuery = sqlQuery;
+    public void setQuery(String query) {
+        this.query = query;
     }
 }
