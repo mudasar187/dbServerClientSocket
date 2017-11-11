@@ -1,7 +1,5 @@
 package Utility;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -9,8 +7,10 @@ import java.util.Properties;
 /**
  * <p>Util class.</p>
  *
- * @author mudasar
- * @version $Id: $Id
+ * @author Mudasar Ahmad
+ * @version 1.0
+ *
+ * Last modified 10 november 2017
  */
 public class Util {
 

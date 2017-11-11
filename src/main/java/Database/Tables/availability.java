@@ -4,8 +4,10 @@ package Database.Tables;
 /**
  * <p>availability class.</p>
  *
- * @author mudasar
- * @version $Id: $Id
+ * @author Mudasar Ahmad
+ * @version 1.0
+ *
+ * Last modified 10 november 2017
  */
 public class availability {
 

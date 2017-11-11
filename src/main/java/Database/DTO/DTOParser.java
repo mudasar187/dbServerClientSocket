@@ -8,8 +8,10 @@ import java.util.ArrayList;
 /**
  * <p>DTOParser class.</p>
  *
- * @author mudasar
- * @version $Id: $Id
+ * @author Mudasar Ahmad
+ * @version 1.0
+ *
+ * Last modified 10 november 2017
  */
 public class DTOParser {
 
@@ -23,7 +25,7 @@ public class DTOParser {
     private String incrementalString;
 
     /**
-     * Tar imot hvilket table det er, og lager en arraylist med objekter
+     * Receive which table it is and make an arraylist of objects
      */
     public DTOParser() {
       availabilities = new ArrayList<availability>();
@@ -34,7 +36,7 @@ public class DTOParser {
     }
 
     /**
-     * Denne metoden gjør resultset spørringen, legger alt info i en arraylist utifra hva den henter basert på tabell nr
+     * This method make resultSet operation, put all information in an arraylist based on which tablenumber it is
      *
      * @param resultSet a java.sql.ResultSet object.
      * @throws java.lang.Exception if any.
@@ -103,9 +105,7 @@ public class DTOParser {
     }
 
     /**
-     *
-     * Denne looper gjennom arraylisten som har innhold, så lager man en stor streng med arraylistens innhold,
-     * så retunerer stringen
+     * This method loops trough the arraylist which have content, and make a incremental string with the content in arraylist by calling toString method
      *
      * <p>makeStringOfOfObject.</p>
      *
@@ -145,7 +145,7 @@ public class DTOParser {
     }
 
     /**
-     * Forstørrer strengen om ønsket basert på parameter
+     * Increment string if true , otherwise false
      * @param increment
      * @param newString
      */
@@ -158,7 +158,7 @@ public class DTOParser {
     }
 
     /**
-     * Sjekker om det er flere kolonner enn en kolonne i resultset, hvis flere, kjør den med flere, hvis en, kjør den ene, se over
+     * Check if its more than one column in resultSet, call this method in parseResults()
      *
      * @param metaData
      * @return
@@ -174,7 +174,7 @@ public class DTOParser {
 
 
     /**
-     * Rense arraylist etter at strengen (increment string) som skal retuneres er laget
+     * Clean up the arraylist after incremental string which going to be returned is build
      */
     private void clearArrays() {
         availabilities.clear();

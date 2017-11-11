@@ -11,10 +11,7 @@ import java.sql.SQLException;
  *
  * @author Mudasar Ahmad
  * @version 1.0
- * <p>
- * DBConnection
- * Class for connection to database
- * <p>
+ *
  * Last modified 10 november 2017
  */
 public class DBConnection {

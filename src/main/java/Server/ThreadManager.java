@@ -1,17 +1,19 @@
 package Server;
 
-import Database.DatabaseHandler.DBManager;
+import Database.DatabaseHandler.DBHandler;
 import Database.DTO.DTO;
 
 /**
  * <p>ThreadManager class.</p>
  *
- * @author mudasar
- * @version $Id: $Id
+ * @author Mudasar Ahmad
+ * @version 1.0
+ *
+ * Last modified 10 november 2017
  */
 public class ThreadManager {
 
-    private DBManager dbManager = new DBManager();
+    private DBHandler dbHandler = new DBHandler();
     private DTO theDto;
 
     /**
@@ -22,7 +24,7 @@ public class ThreadManager {
     }
 
     /**
-     *
+     * This method handling the request from client when client is asking for specific information
      * Denne håndterer forespørsel, f.eks hvis bruker skriver Per, skal dette gjenkjennes og hentes fra lecturer tabellen
      *
      * <p>getSpesificInformationFromDatabase.</p>
@@ -36,19 +38,19 @@ public class ThreadManager {
         if (messageFromClient.contains("Lectures ")) {
             splitUpWords = messageFromClient.substring(0, 9);
             resultString = messageFromClient.replaceAll(splitUpWords, "");
-            theDto = dbManager.getLecturedInfo(resultString);
+            theDto = dbHandler.getLecturedInfo(resultString);
         } else if (messageFromClient.contains("Subject ")) {
             splitUpWords = messageFromClient.substring(0, 8);
             resultString = messageFromClient.replaceAll(splitUpWords, "");
-            theDto = dbManager.getInformationBySubjectCode(resultString);
+            theDto = dbHandler.getInformationBySubjectCode(resultString);
         } else if (messageFromClient.contains("Room ")) {
             splitUpWords = messageFromClient.substring(0, 5);
             resultString = messageFromClient.replaceAll(splitUpWords, "");
-            theDto = dbManager.getRoomInformation(resultString);
+            theDto = dbHandler.getRoomInformation(resultString);
         } else if (messageFromClient.contains("Program ")) {
             splitUpWords = messageFromClient.substring(0, 8);
             resultString = messageFromClient.replaceAll(splitUpWords, "");
-            theDto = dbManager.getProgramInformation(resultString);
+            theDto = dbHandler.getProgramInformation(resultString);
         } else {
             theDto = new DTO("No match for search value " + messageFromClient);
         }
@@ -68,19 +70,19 @@ public class ThreadManager {
                 theDto = makeWelcomeMessage();
                 break;
             case "Lectures":
-                theDto = dbManager.getLectures();
+                theDto = dbHandler.getLectures();
                 break;
             case "Subject":
-                theDto = dbManager.getSubjectCodes();
+                theDto = dbHandler.getSubjectCodes();
                 break;
             case "Availability":
-                theDto = dbManager.getAvailability();
+                theDto = dbHandler.getAvailability();
                 break;
             case "Room":
-                theDto = dbManager.getRoomsOverview();
+                theDto = dbHandler.getRoomsOverview();
                 break;
             case "Program":
-                theDto = dbManager.getProgramsOverview();
+                theDto = dbHandler.getProgramsOverview();
                 break;
             default:
                 theDto = getSpesificInformationFromDatabase(messageFromClient);

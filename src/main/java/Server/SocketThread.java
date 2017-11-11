@@ -10,8 +10,10 @@ import java.net.Socket;
 /**
  * <p>SocketThread class.</p>
  *
- * @author mudasar
- * @version $Id: $Id
+ * @author Mudasar Ahmad
+ * @version 1.0
+ *
+ * Last modified 10 november 2017
  */
 public class SocketThread implements Runnable {
 
@@ -24,6 +26,7 @@ public class SocketThread implements Runnable {
     private DTO theDto;
 
     /**
+     * This method receive which client is getting connected from server side
      * Denne tar imot hvilken klient som kobles til fra server siden
      *
      * @param clientSocket a {@link java.net.Socket} object.
@@ -36,6 +39,7 @@ public class SocketThread implements Runnable {
 
 
     /**
+     * This method receive message from client
      * Mottar beskjed fra client å sender beskjed til send metoden
      */
     public void getMessageFromClient() {
@@ -49,22 +53,23 @@ public class SocketThread implements Runnable {
 
 
     /**
+     * This message send message to client based on what client is send message about
      * Denne metoden sender message som et objekt til client
      */
     public void sendMessageToClient() {
         try {
-            //Lager nytt object av DTO
+            // Create a new DTO object
             DTO dtoToBeSent;
 
 
             if(messageFromClientToServer.equals("exit"))
             {
-                //Assigner ny DTO til dtoToBeSent
+                // Assign new DTO to dtoToBeSent
                 dtoToBeSent = new DTO("### You are now disconnected");
                 whileIsRunning = false;
             } else {
                 System.out.println("### Sending response to client ...");
-                //Assigner ny dto til dtoToBeSent
+                // Assign new dto to dtoToBeSent
                 dtoToBeSent = threadManager.getInformationFromDataBase(messageFromClientToServer);
             }
             output.writeObject(dtoToBeSent);
@@ -85,9 +90,6 @@ public class SocketThread implements Runnable {
     }
 
 
-    /**
-     * Denne kjøres selve tråden
-     */
     public void run() {
 
         try {

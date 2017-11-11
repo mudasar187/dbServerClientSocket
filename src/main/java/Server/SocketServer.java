@@ -5,17 +5,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Klasse for å opprette server
+ * <p>SocketServer class.</p>
  *
- * @author mudasar
- * @version $Id: $Id
+ * @author Mudasar Ahmad
+ * @version 1.0
+ *
+ * Last modified 10 november 2017
  */
 public class SocketServer {
 
     private ServerSocket serverSocket;
 
     /**
-     * Oppretter selve serveren
+     * Create a server
      *
      * @param port a int.
      */
@@ -30,7 +32,7 @@ public class SocketServer {
 
 
     /**
-     * Lytter til klient som skal kobles til, og oppretter en tråd for hver client som kobletr til
+     * This method listen to client which going to the connected, create thread for each client who get connected
      */
     public void serverListener() {
 

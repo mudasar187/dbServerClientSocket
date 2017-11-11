@@ -89,14 +89,15 @@ public class ClientSocket {
 
 
     /**
-     * Get server connection
+     * <p>Getter for the field <code>serverConnection</code>.</p>
      *
      * @return a {@link java.net.Socket} object.
      */
     public Socket getServerConnection() { return serverConnection; }
 
     /**
-     * Set server connection
+     * <p>Setter for the field <code>serverConnection</code>.</p>
+     *
      * @param serverConnection a {@link java.net.Socket} object.
      */
     public void setServerConnection(Socket serverConnection) { this.serverConnection = serverConnection; }

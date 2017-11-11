@@ -41,7 +41,7 @@ public class ClientRun {
 
 
         /**
-         * When user enter exit button, clientSocket send an message to server to exit then close the GUI
+         * When user enter exit button, clientSocket send an message to server to exit before close the GUI
          */
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -128,6 +128,7 @@ public class ClientRun {
             public void windowClosing(WindowEvent e) {
 
                 super.windowClosed(e);
+                // If client enter 'x' in GUI, send message to exit before closing GUI
                 clientSocket.sendMessage("exit");
                 System.exit(1);
             }
