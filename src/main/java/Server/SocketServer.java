@@ -9,7 +9,7 @@ import java.net.Socket;
  *
  * @author Mudasar Ahmad
  * @version 1.0
- *
+ * <p>
  * Last modified 10 november 2017
  */
 public class SocketServer {
@@ -21,13 +21,9 @@ public class SocketServer {
      *
      * @param port a int.
      */
-    public SocketServer(int port) {
-        try {
-            serverSocket = new ServerSocket(port);
-        } catch (Exception e) {
+    public SocketServer(int port) throws Exception {
 
-            System.out.println("### Server is down, or port in use ###");
-        }
+        serverSocket = new ServerSocket(port);
     }
 
 
@@ -36,15 +32,19 @@ public class SocketServer {
      */
     public void serverListener() {
 
-        System.out.println("### Server is started !");
-        while(true) {
-            try {
+        System.out.println("### Server is started ###");
+        while (true)
+        {
+            try
+            {
                 Socket clientConnection = serverSocket.accept();
-                System.out.println("### Client is connected !");
+                System.out.println("### Client is connected ###");
                 SocketThread socketThread = new SocketThread(clientConnection);
                 new Thread(socketThread).start();
-            } catch (IOException e) {
-
+            }
+            catch (IOException e)
+            {
+                System.out.println(e.getMessage());
             }
         }
     }

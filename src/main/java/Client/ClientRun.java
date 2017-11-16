@@ -143,9 +143,14 @@ public class ClientRun {
      * @param args an array of {@link java.lang.String} objects.
      */
     public static void main(String[] args) {
-        clientSocket = new ClientSocket("localhost", 9999);
 
-       setUpGUI();
+        try
+        {
+            clientSocket = new ClientSocket("localhost", 9999);
+            setUpGUI();
+        } catch (Exception e) {
+            System.out.println("### Cannot find any server to connect ###");
+        }
     }
 
 

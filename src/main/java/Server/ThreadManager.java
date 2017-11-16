@@ -62,7 +62,7 @@ public class ThreadManager {
         }
         else
         {
-            theDto = new DTO("### No match for search value " + messageFromClient);
+            theDto = new DTO("### No match for search value " + messageFromClient + " ###");
         }
         return theDto;
     }

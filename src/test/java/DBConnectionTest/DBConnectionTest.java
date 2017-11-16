@@ -12,6 +12,10 @@ public class DBConnectionTest {
 
     DBConnection dbConnection = new DBConnection();
 
+    /**
+     * Start xampp to test
+     */
+
     @Test
     public void getConnection() throws Exception {
 

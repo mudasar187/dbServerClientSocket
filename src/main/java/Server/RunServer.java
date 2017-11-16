@@ -1,5 +1,6 @@
 package Server;
 
+import Database.DatabaseConnection.DBConnection;
 import Utility.Util;
 
 /**
@@ -7,7 +8,7 @@ import Utility.Util;
  *
  * @author Mudasar Ahmad
  * @version 1.0
- *
+ * <p>
  * Last modified 10 november 2017
  */
 public class RunServer {
@@ -20,9 +21,15 @@ public class RunServer {
     public static void main(String[] args) {
 
         Util util = new Util("src/main/resources/socketdatabase.properties");
-        SocketServer socketServer = new SocketServer(util.getSocketIpPort());
-        socketServer.serverListener();
+
+        try
+        {
+            SocketServer socketServer = new SocketServer(util.getSocketIpPort());
+            socketServer.serverListener();
+        }
+        catch (Exception e)
+        {
+            System.out.println("### Server already running ###");
+        }
     }
-
-
 }

@@ -2,7 +2,6 @@ package Client;
 
 import Database.DatabaseConnection.DBConnection;
 import Utility.Util;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,10 +14,10 @@ public class ClientSocketTest {
     private Util util;
 
     /**
-     * Start server for å kunne teste client
+     * Start server and xampp to test
      */
     @Before
-    public void setup() {
+    public void setup() throws Exception {
         connection = new DBConnection();
         util = new Util("src/main/resources/socketdatabase.properties");
         clientSocket = new ClientSocket(util.getSocketHost(), util.getSocketIpPort());
@@ -26,7 +25,7 @@ public class ClientSocketTest {
 
     @Test
     public void sendMessageEmptyStringToReturnWelcomeMessage() throws Exception {
-        Assert.assertEquals(clientSocket.sendMessage("Choose options here"), " Welcome !\n" +
+        assertEquals(clientSocket.sendMessage("Choose options here"), " Welcome !\n" +
                 " You can click on the box above to select options.\n" +
                 " You can choose to retrieve all teachers, topics, rooms, programs and accessibility for teachers.\n" +
                 " When you select one of these options, you will get a name for these choices.\n" +
@@ -38,7 +37,6 @@ public class ClientSocketTest {
 
     @Test
     public void getServerConnection() throws Exception {
-        Assert.assertNotNull(connection.getConnection());
+        assertNotNull(connection.getConnection());
     }
-
 }

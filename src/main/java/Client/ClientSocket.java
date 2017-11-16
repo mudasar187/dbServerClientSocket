@@ -25,13 +25,8 @@ public class ClientSocket {
      * @param host a {@link java.lang.String} object.
      * @param port a int.
      */
-    public ClientSocket(String host, int port) {
-        try {
+    public ClientSocket(String host, int port) throws Exception {
             setServerConnection(new Socket(host, port));
-        } catch (Exception e) {
-            // If server is not on
-            System.out.println("### Cannot find any server to connect!");
-        }
     }
 
     /**
@@ -46,7 +41,7 @@ public class ClientSocket {
             output = new ObjectOutputStream(getServerConnection().getOutputStream());
             if(message != null)
             {
-                System.out.println("### Client sending message to server ...");
+                System.out.println("### Client sending message to server ###");
                 output.writeUTF(message);
                 output.flush();
 
@@ -54,10 +49,10 @@ public class ClientSocket {
                 return getMessage();
             }
         } catch (Exception e) {
-            System.out.println("### Client cannot send message to server ...");
+            System.out.println("### Client cannot send message to server ###");
         }
         // If parameter is empty string
-        return "### You must enter some value";
+        return "### You must enter some value ###";
 
     }
 
@@ -72,13 +67,13 @@ public class ClientSocket {
     private String getMessage() throws Exception {
 
         input = new ObjectInputStream(getServerConnection().getInputStream());
-        System.out.println("### Getting respons from server ...");
+        System.out.println("### Getting respons from server ###");
 
         DTO dto = (DTO) input.readObject();
 
         if (dto.getParsedString().equals("")) {
             // Return this message if no value found
-            return "### Could not find anything ...";
+            return "### Could not find anything ###";
         } else {
             // Return parsed value
             return dto.getParsedString();
