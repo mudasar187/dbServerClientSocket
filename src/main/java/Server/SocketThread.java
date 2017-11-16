@@ -91,7 +91,7 @@ public class SocketThread implements Runnable {
                 output = new ObjectOutputStream(clientSocket.getOutputStream());
                 getMessageFromClient();
             }
-            System.out.println("### Client is disconnecting ###");
+            System.out.println("\n\n### Client is disconnecting ###");
             input.close();
             output.close();
             clientSocket.close();

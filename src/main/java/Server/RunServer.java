@@ -3,6 +3,8 @@ package Server;
 import Database.DatabaseConnection.DBConnection;
 import Utility.Util;
 
+import java.sql.SQLException;
+
 /**
  * <p>ServerRun class.</p>
  *

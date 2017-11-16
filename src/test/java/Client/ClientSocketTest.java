@@ -1,9 +1,10 @@
 package Client;
 
 import Database.DatabaseConnection.DBConnection;
+import Server.RunServer;
+import Server.SocketServer;
 import Utility.Util;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 

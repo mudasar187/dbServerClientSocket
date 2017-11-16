@@ -67,7 +67,7 @@ public class ClientSocket {
     private String getMessage() throws Exception {
 
         input = new ObjectInputStream(getServerConnection().getInputStream());
-        System.out.println("### Getting respons from server ###");
+        System.out.println("### Getting respons from server ###\n");
 
         DTO dto = (DTO) input.readObject();
 

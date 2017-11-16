@@ -30,22 +30,15 @@ public class SocketServer {
     /**
      * This method listen to client who going to be connected, create thread for each client who get connected
      */
-    public void serverListener() {
+    public void serverListener() throws Exception {
 
-        System.out.println("### Server is started ###");
+        System.out.println("### Server is started ###\n\n");
         while (true)
         {
-            try
-            {
-                Socket clientConnection = serverSocket.accept();
-                System.out.println("### Client is connected ###");
-                SocketThread socketThread = new SocketThread(clientConnection);
-                new Thread(socketThread).start();
-            }
-            catch (IOException e)
-            {
-                System.out.println(e.getMessage());
-            }
+            Socket clientConnection = serverSocket.accept();
+            System.out.println("### Client is connected ###\n");
+            SocketThread socketThread = new SocketThread(clientConnection);
+            new Thread(socketThread).start();
         }
     }
 }
