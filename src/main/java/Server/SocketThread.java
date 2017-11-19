@@ -39,6 +39,8 @@ public class SocketThread implements Runnable {
 
     /**
      * This method receive message from client
+     *
+     * @throws java.lang.Exception if any.
      */
     public void getMessageFromClient() throws Exception {
             messageFromClientToServer = input.readUTF();
@@ -83,6 +85,9 @@ public class SocketThread implements Runnable {
     }
 
 
+    /**
+     * <p>run.</p>
+     */
     public void run() {
 
         try {

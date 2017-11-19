@@ -24,6 +24,7 @@ public class ClientSocket {
      *
      * @param host a {@link java.lang.String} object.
      * @param port a int.
+     * @throws java.lang.Exception if any.
      */
     public ClientSocket(String host, int port) throws Exception {
             setServerConnection(new Socket(host, port));

@@ -20,6 +20,7 @@ public class SocketServer {
      * Create a server
      *
      * @param port a int.
+     * @throws java.lang.Exception if any.
      */
     public SocketServer(int port) throws Exception {
 
@@ -29,6 +30,8 @@ public class SocketServer {
 
     /**
      * This method listen to client who going to be connected, create thread for each client who get connected
+     *
+     * @throws java.lang.Exception if any.
      */
     public void serverListener() throws Exception {
 

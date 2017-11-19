@@ -42,9 +42,7 @@ public class DTOParser {
      *
      * @param resultSet   a java.sql.ResultSet object.
      * @param tableNumber a int.
-     *
      * @return a {@link java.lang.String} object.
-     *
      * @throws java.lang.Exception if any.
      */
     public String parseResults(ResultSet resultSet, int tableNumber) throws Exception {
