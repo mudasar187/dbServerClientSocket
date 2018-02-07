@@ -1,4 +1,8 @@
-# Socket Project
+## Exam Project
+
+This was part of the exam in PGR200
+
+## Socket Project
 
 * Java
 * Maven
@@ -7,11 +11,11 @@
 * Multithreading
 * GUI
 
-# Functionality
+## Functionality
 
 * Communication between client and server
 
-# Settings
+## Settings
 
 * You need to have created the database made in 'dbAssignment' application to run this application
 
